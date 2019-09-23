@@ -26,7 +26,7 @@
 							</td>
 
 							<td>
-								<span class="value-date"><c:choose><c:when test="${oi.emr}"><openmrs:formatDate date="${oi.demographicChangeDate}" format="${FormatDate_General}"/></c:when><c:otherwise>${DateTextPlaceHolder}</c:otherwise></c:choose></span>
+								<span class="value-date"><c:choose><c:when test="${oi.emr}"><openmrs:formatDate date="${oi.cbsDemographicChangeDate}" format="${FormatDate_General}"/></c:when><c:otherwise>${DateTextPlaceHolder}</c:otherwise></c:choose></span>
 							</td>
 
 						</tr>

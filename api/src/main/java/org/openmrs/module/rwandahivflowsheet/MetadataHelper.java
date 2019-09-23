@@ -2,11 +2,7 @@ package org.openmrs.module.rwandahivflowsheet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.Concept;
-import org.openmrs.EncounterType;
-import org.openmrs.Form;
-import org.openmrs.PatientIdentifierType;
-import org.openmrs.Program;
+import org.openmrs.*;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.rwandahivflowsheet.impl.pih.ConceptDictionary;
 
@@ -312,10 +308,17 @@ public class MetadataHelper {
 
             ConceptDictionary.CBS_INDEX_NOTIFIED_CONTACT   = setup("CBS_INDEX_NOTIFIED_CONTACT", props, unfoundItems);
 
-            ConceptDictionary.CBS_HEALTHCARE_PROVIDER_NOTIFIED_CONTACT   = setup("CBS_INDEX_CASE_TYPE", props, unfoundItems);
+            ConceptDictionary.CBS_INDEX_CASE_TYPE   = setup("CBS_INDEX_CASE_TYPE", props, unfoundItems);
 
-            ConceptDictionary.CBS_INDEX_NOTIFIED_CONTACT   = setup("ENROLLED_IN_CBS", props, unfoundItems);
+            ConceptDictionary.ENROLLED_IN_CBS   = setup("ENROLLED_IN_CBS", props, unfoundItems);
 
+            ConceptDictionary.RECENCY_ASSAY_RESULTS = setup("RECENCY_ASSAY_RESULTS", props, unfoundItems);
+
+            ConceptDictionary.RECENCY_TEST_DATE = setup("RECENCY_TEST_DATE", props, unfoundItems);
+
+            ConceptDictionary.CBS_DEMOGRAPHIC_CHANGE = setup("CBS_DEMOGRAPHIC_CHANGE", props, unfoundItems);
+
+            ConceptDictionary.RISK_FACTOR_CHANGE = setup("RISK_FACTOR_CHANGE", props, unfoundItems);
 
 
             ConceptDictionary.ADULT_ALLERGY_FORM = setupForm("rwandaadulthivflowsheet.Form_NewAllergy");

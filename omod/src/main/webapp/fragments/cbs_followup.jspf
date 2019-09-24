@@ -24,7 +24,6 @@
                             <c:set var="shownCbsFollowup" value="${shownOI},${cbsfollowup.encounter.encounterId}"/>
 
                         </td>
-
                         <td>
                             <span class="value-date"><c:choose><c:when test="${cbsfollowup.emr}"><openmrs:formatDate date="${cbsfollowup.cbsDemographicChangeDate}" format="${FormatDate_General}"/></c:when><c:otherwise>${DateTextPlaceHolder}</c:otherwise></c:choose></span>
                                 </td>
@@ -36,6 +35,7 @@
                 <td/>
                 <td colspan="4">
                     <button onClick="showEntryPopup('CBS Follow-up', ${formData.cbsFollowupVisitFormId}); return false;">Nouveau</button>
+            </tr>
         </tbody>
     </table>
 </div>

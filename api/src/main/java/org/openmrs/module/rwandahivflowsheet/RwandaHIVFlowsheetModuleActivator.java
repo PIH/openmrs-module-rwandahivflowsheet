@@ -15,28 +15,28 @@ package org.openmrs.module.rwandahivflowsheet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.module.Activator;
+import org.openmrs.module.BaseModuleActivator;
 
 /**
  * This class contains the logic that is run every time this module
  * is either started or shutdown
  */
-public class RwandaHIVFlowsheetModuleActivator implements Activator {
+public class RwandaHIVFlowsheetModuleActivator extends BaseModuleActivator {
 
-	private Log log = LogFactory.getLog(this.getClass());
+    protected Log log = LogFactory.getLog(this.getClass());
 
 	/**
-	 * @see org.openmrs.module.Activator#startup()
+	 * @see BaseModuleActivator#started()
 	 */
-	public void startup() {
-		log.info("Starting Rwanda PIH HIV Flowsheet Module");
+	public void started() {
+		log.info("Rwanda PIH HIV Flowsheet Module started");
 	}
 	
 	/**
-	 *  @see org.openmrs.module.Activator#shutdown()
+	 *  @see BaseModuleActivator#stopped()
 	 */
-	public void shutdown() {
-		log.info("Shutting down Rwanda PIH HIV Flowsheet Module");
+	public void stopped() {
+		log.info("Rwanda PIH HIV Flowsheet Module stopped");
 	}
 	
 }

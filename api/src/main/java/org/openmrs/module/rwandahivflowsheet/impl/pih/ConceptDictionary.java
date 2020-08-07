@@ -415,7 +415,15 @@ public class ConceptDictionary {
 	public static int ADULT_LAB_FORM;
 	
 	public static int ADULT_IMAGE_FORM;
-	
+
+	public static int ADULT_CBS_FOLLOWUP_VISIT_FORM;
+
+	public static int ADULT_CBS_INDEX_FORM;
+
+	public static int ADULT_CBS_RECENCY_VL_FORM;
+
+	public static int ADULT_CBS_ENROLLMENT_FORM;
+
 	public static int PEDI_ALLERGY_FORM;
 	
 	public static int PEDI_HOSPITALISATION_FORM;
@@ -429,7 +437,37 @@ public class ConceptDictionary {
 	public static int PEDI_LAB_FORM;
 	
 	public static int PEDI_IMAGE_FORM;
-	
+
+	//CBS forms testing
+
+	public static int CBS_CONTACT_CODE;
+
+	public static int CBS_CONTACT_AGE ;
+
+	public static int  CBS_CONTACT_GENDER;
+
+	public static int RELATION_OF_THE_CONTACT_AND_INDEX_CASE;
+
+	public static int CBS_HEALTHCARE_PROVIDER_NOTIFIED_CONTACT;
+
+	public static int CBS_INDEX_NOTIFIED_CONTACT;
+
+	public static int CBS_INDEX_AND_HEALTHCARE_PROVIDER_NOTIFIED_CONTACT;
+
+	public static int  CBS_CONTACT_NOTIFIER;
+
+	public static int CBS_INDEX_CASE_TYPE;
+
+	public static int  ENROLLED_IN_CBS;
+
+	public static int CBS_DEMOGRAPHIC_CHANGE;
+
+	public static int RISK_FACTOR_CHANGE;
+
+	public static int RECENCY_ASSAY_RESULTS;
+
+	public static int RECENCY_TEST_DATE;
+
 	
 
 	private ConceptDictionary() {

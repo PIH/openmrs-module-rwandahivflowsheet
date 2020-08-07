@@ -2,11 +2,7 @@ package org.openmrs.module.rwandahivflowsheet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.Concept;
-import org.openmrs.EncounterType;
-import org.openmrs.Form;
-import org.openmrs.PatientIdentifierType;
-import org.openmrs.Program;
+import org.openmrs.*;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.rwandahivflowsheet.impl.pih.ConceptDictionary;
 
@@ -299,7 +295,32 @@ public class MetadataHelper {
             ConceptDictionary.STI_INFECTION_NON_CODED    = setup("STI_INFECTIONS_NON_CODED", props, unfoundItems);
             
             ConceptDictionary.STI_SET    = setup("STI_SET", props, unfoundItems);
-            
+
+            ConceptDictionary.CBS_CONTACT_CODE   = setup("CBS_CONTACT_CODE", props, unfoundItems);
+
+            ConceptDictionary.CBS_CONTACT_AGE   = setup("CBS_CONTACT_AGE", props, unfoundItems);
+
+            ConceptDictionary.CBS_CONTACT_GENDER   = setup("CBS_CONTACT_GENDER", props, unfoundItems);
+
+            ConceptDictionary.RELATION_OF_THE_CONTACT_AND_INDEX_CASE   = setup("RELATION_OF_THE_CONTACT_AND_INDEX_CASE", props, unfoundItems);
+
+            ConceptDictionary.CBS_HEALTHCARE_PROVIDER_NOTIFIED_CONTACT   = setup("CBS_HEALTHCARE_PROVIDER_NOTIFIED_CONTACT", props, unfoundItems);
+
+            ConceptDictionary.CBS_INDEX_NOTIFIED_CONTACT   = setup("CBS_INDEX_NOTIFIED_CONTACT", props, unfoundItems);
+
+            ConceptDictionary.CBS_INDEX_CASE_TYPE   = setup("CBS_INDEX_CASE_TYPE", props, unfoundItems);
+
+            ConceptDictionary.ENROLLED_IN_CBS   = setup("ENROLLED_IN_CBS", props, unfoundItems);
+
+            ConceptDictionary.RECENCY_ASSAY_RESULTS = setup("RECENCY_ASSAY_RESULTS", props, unfoundItems);
+
+            ConceptDictionary.RECENCY_TEST_DATE = setup("RECENCY_TEST_DATE", props, unfoundItems);
+
+            ConceptDictionary.CBS_DEMOGRAPHIC_CHANGE = setup("CBS_DEMOGRAPHIC_CHANGE", props, unfoundItems);
+
+            ConceptDictionary.RISK_FACTOR_CHANGE = setup("RISK_FACTOR_CHANGE", props, unfoundItems);
+
+
             ConceptDictionary.ADULT_ALLERGY_FORM = setupForm("rwandaadulthivflowsheet.Form_NewAllergy");
             ConceptDictionary.ADULT_OI_FORM = setupForm("rwandaadulthivflowsheet.Form_NewOI");
             ConceptDictionary.ADULT_HOSPITALISATION_FORM = setupForm("rwandaadulthivflowsheet.Form_NewHospitalisations");
@@ -307,6 +328,10 @@ public class MetadataHelper {
             ConceptDictionary.ADULT_VISIT_FORM = setupForm("rwandaadulthivflowsheet.Form_NewVisit");
             ConceptDictionary.ADULT_LAB_FORM = setupForm("rwandaadulthivflowsheet.Form_NewLab");
             ConceptDictionary.ADULT_IMAGE_FORM = setupForm("rwandaadulthivflowsheet.Form_NewImage");
+            ConceptDictionary.ADULT_CBS_FOLLOWUP_VISIT_FORM = setupForm("rwandaadulthivflowsheet.Form_CbsFollowupVisit");
+            ConceptDictionary.ADULT_CBS_ENROLLMENT_FORM =setupForm("rwandaadulthivflowsheet.Form_CbsEnrollment");
+            ConceptDictionary.ADULT_CBS_INDEX_FORM =setupForm("rwandaadulthivflowsheet.Form_CbsIndexForm");
+            ConceptDictionary.ADULT_CBS_RECENCY_VL_FORM =setupForm("rwandaadulthivflowsheet.Form_CbsRecencyVl");
             ConceptDictionary.PEDI_ALLERGY_FORM = setupForm("rwandapedihivflowsheet.Form_NewAllergy");
             ConceptDictionary.PEDI_OI_FORM = setupForm("rwandapedihivflowsheet.Form_NewOI");
             ConceptDictionary.PEDI_HOSPITALISATION_FORM = setupForm("rwandapedihivflowsheet.Form_NewHospitalisations");
@@ -314,7 +339,7 @@ public class MetadataHelper {
             ConceptDictionary.PEDI_VISIT_FORM = setupForm("rwandapedihivflowsheet.Form_NewVisit");
             ConceptDictionary.PEDI_LAB_FORM = setupForm("rwandapedihivflowsheet.Form_NewLab");
             ConceptDictionary.PEDI_IMAGE_FORM = setupForm("rwandapedihivflowsheet.Form_NewImage");
-            
+
             for (String str: unfoundItems)
             	log.error("RwandaHivFlowsheet module could not load the folowing item in global property rwandahivflowsheet.constants: " + str);
             

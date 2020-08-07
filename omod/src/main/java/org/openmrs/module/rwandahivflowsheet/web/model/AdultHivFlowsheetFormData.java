@@ -309,6 +309,14 @@ public class AdultHivFlowsheetFormData extends HivFlowsheetFormData {
     {
     	return ConceptDictionary.ADULT_LAB_FORM;
     }
+
+	public int getCbsFollowupVisitFormId(){ return ConceptDictionary.ADULT_CBS_FOLLOWUP_VISIT_FORM;}
+
+	public int getCbsEnrollmentFormId(){return ConceptDictionary.ADULT_CBS_ENROLLMENT_FORM;}
+
+	public int getCbsIndexFormId(){return ConceptDictionary.ADULT_CBS_INDEX_FORM;}
+
+	public int getCbsResultFormId(){return ConceptDictionary.ADULT_CBS_RECENCY_VL_FORM;}
     
     public int getImageFormId()
     {

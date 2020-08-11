@@ -9,5 +9,13 @@
 	<packaging>jar</packaging>
 	<name>rwandahivflowsheet API</name>
 	<description>API project for rwandahivflowsheet</description>
-
+	
+	<dependencies>
+		<dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>legacyui-omod</artifactId>
+            <version>1.6.0</version>
+            <scope>provided</scope>
+        </dependency>
+	</dependencies>
 </project>

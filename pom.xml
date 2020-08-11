@@ -17,7 +17,7 @@
     </modules>
 
     <properties>
-        <openMRSVersion>1.9.9</openMRSVersion>
+        <openMRSVersion>2.3.0</openMRSVersion>
         <heightweighttrackerVersion>1.0.3</heightweighttrackerVersion>
         <htmlformentryVersion>2.6</htmlformentryVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

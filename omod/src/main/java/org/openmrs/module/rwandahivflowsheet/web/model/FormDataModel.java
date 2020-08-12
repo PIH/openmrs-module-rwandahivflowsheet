@@ -1152,7 +1152,7 @@ public class FormDataModel {
 				etList.add(Context.getEncounterService().getEncounterType(ConceptDictionary.ADULT_FLOWSHEET_ENCOUNTER_ID));
 			if (ConceptDictionary.PEDI_FLOWSHEET_ENCOUNTER_ID != null)
 				etList.add(Context.getEncounterService().getEncounterType(ConceptDictionary.PEDI_FLOWSHEET_ENCOUNTER_ID));
-			List<Encounter> encs =  Context.getEncounterService().getEncounters(patient, null, null, null, null, etList, null, false);
+			List<Encounter> encs =  Context.getEncounterService().getEncounters(patient, null, null, null, null, etList, null, null, null, false);
 			this.encounterTypeEncs = encs;
 			return this.encounterTypeEncs;
 		}

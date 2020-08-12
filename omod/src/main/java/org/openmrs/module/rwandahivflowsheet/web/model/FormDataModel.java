@@ -432,7 +432,7 @@ public class FormDataModel {
 			if (o.getDrug() != null)
 				ret.append(o.getDrug().getName());
 			else
-				ret.append(o.getConcept().getBestName(Context.getLocale()).getName());
+				ret.append(o.getConcept().getName(Context.getLocale()).getName());
 			if (i.hasNext())
 				ret.append(" ");
 		}

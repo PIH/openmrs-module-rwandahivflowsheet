@@ -335,7 +335,7 @@ public class PediHivFlowsheetFormData extends HivFlowsheetFormData {
     					 && (((dor.getDiscontinuedDate() != null && dor.getDiscontinuedDate().before(maxEndDate)) 
     							 ||   (dor.getAutoExpireDate() != null && dor.getAutoExpireDate().before(maxEndDate))))){
     				   
-    				   reasons.add(dor.getDiscontinuedReason().getBestName(Context.getLocale()).getName());
+    				   reasons.add(dor.getDiscontinuedReason().getName(Context.getLocale()).getName());
     				   
     			}    				
     		}

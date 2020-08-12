@@ -124,7 +124,7 @@ public class ImagePediMapping extends ObsMapping implements Comparable<ImagePedi
 				return o.getConcept().getName().getName();
 			} else if (o.getValueCoded() != null)
 				try {
-					return o.getValueCoded().getBestName(Context.getLocale()).getName();
+					return o.getValueCoded().getName(Context.getLocale()).getName();
 				} catch (Exception ex){
 					return o.getValueCoded().getName().getName();
 				}

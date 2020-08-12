@@ -207,7 +207,7 @@ public class HivFlowsheetFormData extends FormDataModel {
     		if (dorListOnStartDate.size() > 0)
     			ret.put(dor.getStartDate(), dorListOnStartDate);
     		
-    		Date endDate = dor.getDiscontinuedDate();
+    		Date endDate = dor.getEffectiveStopDate();
     		if (endDate == null)
     			endDate = dor.getAutoExpireDate();
     		
@@ -237,7 +237,7 @@ public class HivFlowsheetFormData extends FormDataModel {
     		if (!usedDrugOrderIds.contains(dor.getOrderId())){
     			if (dor.getStartDate() == null)
 	    			continue;
-	    		Date endDate = dor.getDiscontinuedDate();
+	    		Date endDate = dor.getEffectiveStopDate();
 	    		if (endDate == null)
 	    			endDate = dor.getAutoExpireDate();
 	    		if (endDate == null || ((endDate != null && endDate.getTime() - dor.getStartDate().getTime() > (1000*60*60*24*30)))) // regimen that lasted more than 30 days, or there is no endDate specified

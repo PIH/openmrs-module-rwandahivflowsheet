@@ -446,7 +446,7 @@ public class FormDataModel {
 				List<DrugOrder> tmp  = Context.getOrderService().getDrugOrdersByPatient(this.getPatient());
 		    	Collections.sort(tmp, new Comparator<DrugOrder>() {  //ascending
 		            public int compare(DrugOrder left, DrugOrder right) {
-		                if (left.getStartDate().getTime() < right.getStartDate().getTime()) 
+		                if (left.getEffectiveStartDate().getTime() < right.getEffectiveStartDate().getTime()) 
 		               	 return -1; 
 		                return 1;
 		                
@@ -497,8 +497,8 @@ public class FormDataModel {
 			return null;
 		Date earliest = null;
 		for (DrugOrder o : patientOrders) {
-			if (earliest == null || OpenmrsUtil.compareWithNullAsLatest(o.getStartDate(), earliest) < 0)
-				earliest = o.getStartDate();
+			if (earliest == null || OpenmrsUtil.compareWithNullAsLatest(o.getEffectiveStartDate(), earliest) < 0)
+				earliest = o.getEffectiveStartDate();
 		}
 		return earliest;
 	}

@@ -28,8 +28,8 @@ public class TbEpisodeMapping implements Comparable<TbEpisodeMapping>{
 		Date initialDate = null;
 		for (DrugOrder dor : tbDrugOrders){
 			if (initialDate == null)
-				initialDate = dor.getStartDate();
-			else if (dor.getStartDate().getTime() > initialDate.getTime() && (
+				initialDate = dor.getEffectiveStartDate();
+			else if (dor.getEffectiveStartDate().getTime() > initialDate.getTime() && (
 					dor.getConcept().getConceptId().equals(ConceptDictionary.TB_DRUG_RH) 
 					|| dor.getConcept().getConceptId().equals(ConceptDictionary.TB_DRUG_RHE) )
 					|| dor.getConcept().getConceptId().equals(ConceptDictionary.TB_DRUG_RHZ))
@@ -63,14 +63,14 @@ public class TbEpisodeMapping implements Comparable<TbEpisodeMapping>{
 
 	public Date getEpisodeDate() {
 		if (tbDrugOrders.size() > 0)
-			return tbDrugOrders.get(0).getStartDate();
+			return tbDrugOrders.get(0).getEffectiveStartDate();
 		return null;
 	}
 
 	public Date getEpisodeEnd(){
 		if (tbDrugOrders.size() > 0){
 			Calendar cal = Calendar.getInstance();
-			cal.setTime(tbDrugOrders.get(0).getStartDate());
+			cal.setTime(tbDrugOrders.get(0).getEffectiveStartDate());
 			cal.add(Calendar.DAY_OF_MONTH, Integer.valueOf((356/2 + 30)));
 			return cal.getTime();
 		}	

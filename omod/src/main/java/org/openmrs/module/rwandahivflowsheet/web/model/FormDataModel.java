@@ -19,7 +19,6 @@ import java.util.Vector;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.Cohort;
 import org.openmrs.Concept;
 import org.openmrs.Drug;
 import org.openmrs.DrugOrder;
@@ -38,9 +37,10 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.PatientService;
-import org.openmrs.api.PatientSetService;
 import org.openmrs.api.ProgramWorkflowService;
 import org.openmrs.api.context.Context;
+import org.openmrs.cohort.Cohort;
+import org.openmrs.module.reportingcompatibility.service.ReportingCompatibilityService;
 import org.openmrs.module.rwandahivflowsheet.impl.pih.ConceptDictionary;
 import org.openmrs.util.OpenmrsUtil;
 
@@ -94,7 +94,7 @@ public class FormDataModel {
 	// Map<tablename+columnname, Map<personId, columnvalue>>
 	private Map<String, Map<Integer, Object>> personAttributeMap = new HashMap<String, Map<Integer, Object>>();
 	
-	private PatientSetService patientSetService;
+	private ReportingCompatibilityService patientSetService;
 	
 	private PatientService patientService;
 	
@@ -107,7 +107,7 @@ public class FormDataModel {
 	private List<Encounter> encounterTypeEncs = new ArrayList<Encounter>();
 	
 	public FormDataModel() {
-		this.patientSetService = Context.getPatientSetService();
+		this.patientSetService = Context.getService(ReportingCompatibilityService.class);
 		this.patientService = Context.getPatientService();
 		this.conceptService = Context.getConceptService();
 		this.encounterService = Context.getEncounterService();

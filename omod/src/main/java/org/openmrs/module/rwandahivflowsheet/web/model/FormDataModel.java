@@ -25,6 +25,8 @@ import org.openmrs.DrugOrder;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Location;
+import org.openmrs.Order;
+import org.openmrs.OrderType;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.PatientIdentifierType;
@@ -439,11 +441,23 @@ public class FormDataModel {
 		return ret.toString();
 	}
 	
-	
+	public List<DrugOrder> getDrugOrdersByPatient(Patient patient){
+		List<DrugOrder> ret = new ArrayList<DrugOrder>();
+		List<Order> allPatientOrders = Context.getOrderService().getAllOrdersByPatient(patient);
+		if (allPatientOrders != null && allPatientOrders.size() > 0) {
+			for (Order order : allPatientOrders) {
+				if(order.getOrderType().equals(Context.getOrderService().getOrderTypeByUuid(OrderType.DRUG_ORDER_TYPE_UUID))) {
+					ret.add((DrugOrder)order);
+				}
+			}
+		}
+		return ret;
+	}
 	public List<DrugOrder> getAllPatientDrugOrders(){
 		List<DrugOrder> ret = new ArrayList<DrugOrder>();
 		if (allPatientDrugOrders == null || allPatientDrugOrders.size() == 0){
-				List<DrugOrder> tmp  = Context.getOrderService().getDrugOrdersByPatient(this.getPatient());
+				List<DrugOrder> tmp  = getDrugOrdersByPatient(this.getPatient());
+				Context.getOrderService().getAllOrdersByPatient(patient);
 		    	Collections.sort(tmp, new Comparator<DrugOrder>() {  //ascending
 		            public int compare(DrugOrder left, DrugOrder right) {
 		                if (left.getEffectiveStartDate().getTime() < right.getEffectiveStartDate().getTime()) 

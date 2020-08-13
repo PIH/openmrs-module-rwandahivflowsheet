@@ -23,6 +23,7 @@ import org.openmrs.module.heightweighttracker.impl.pih.WHOMapping;
 import org.openmrs.module.rwandahivflowsheet.impl.pih.ConceptDictionary;
 import org.openmrs.module.rwandahivflowsheet.impl.pih.ProphylaxisMapping;
 import org.openmrs.module.rwandahivflowsheet.regimen.RegimenDrugHelper;
+import org.openmrs.module.rwandahivflowsheet.utils.Utils;
 import org.openmrs.module.rwandahivflowsheet.web.UIHelper;
 
 public class PediHivFlowsheetFormData extends HivFlowsheetFormData {
@@ -331,11 +332,11 @@ public class PediHivFlowsheetFormData extends HivFlowsheetFormData {
     		
     		Set<String> reasons = new HashSet<String>();
     		for (DrugOrder dor :drugOrders){
-    			if (dor.getDiscontinuedReason() != null 
+    			if (Utils.getDiscontinuedReason(dor) != null 
     					 && (((dor.getEffectiveStopDate() != null && dor.getEffectiveStopDate().before(maxEndDate)) 
     							 ||   (dor.getAutoExpireDate() != null && dor.getAutoExpireDate().before(maxEndDate))))){
     				   
-    				   reasons.add(dor.getDiscontinuedReason().getName(Context.getLocale()).getName());
+    				   reasons.add(Utils.getDiscontinuedReason(dor).getName(Context.getLocale()).getName());
     				   
     			}    				
     		}

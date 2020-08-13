@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.openmrs.DrugOrder;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.rwandahivflowsheet.utils.Utils;
 
 public class ProphylaxisMapping extends DrugOrder {
 	
@@ -24,37 +25,37 @@ public class ProphylaxisMapping extends DrugOrder {
 		}
 		
 		public boolean isToxicity(){
-			if (drugOrder != null && drugOrder.getDiscontinuedReason() != null 
-					&& drugOrder.getDiscontinuedReason().getConceptId().equals(ConceptDictionary.PROPHYLAXIS_REASON_FOR_STOPPING_TOXICITY))
+			if (drugOrder != null && Utils.getDiscontinuedReason(drugOrder) != null 
+					&& Utils.getDiscontinuedReason(drugOrder).getConceptId().equals(ConceptDictionary.PROPHYLAXIS_REASON_FOR_STOPPING_TOXICITY))
 				return true;
 			return false;
 		}
 		public boolean isAbandoned(){
-			if (drugOrder != null && drugOrder.getDiscontinuedReason() != null 
-					&& drugOrder.getDiscontinuedReason().getConceptId().equals(ConceptDictionary.PROPHYLAXIS_REASON_FOR_STOPPING_ABANDONED))
+			if (drugOrder != null && Utils.getDiscontinuedReason(drugOrder) != null 
+					&& Utils.getDiscontinuedReason(drugOrder).getConceptId().equals(ConceptDictionary.PROPHYLAXIS_REASON_FOR_STOPPING_ABANDONED))
 				return true;
 			return false;
 		}
 		public boolean isOutOfStock(){
-			if (drugOrder != null && drugOrder.getDiscontinuedReason() != null 
-					&& drugOrder.getDiscontinuedReason().getConceptId().equals(ConceptDictionary.PROPHYLAXIS_REASON_FOR_STOPPING_OUT_OF_STOCK))
+			if (drugOrder != null && Utils.getDiscontinuedReason(drugOrder) != null 
+					&& Utils.getDiscontinuedReason(drugOrder).getConceptId().equals(ConceptDictionary.PROPHYLAXIS_REASON_FOR_STOPPING_OUT_OF_STOCK))
 				return true;
 			return false;
 		}
 		public boolean isCd4Improved(){
-			if (drugOrder != null && drugOrder.getDiscontinuedReason() != null 
-					&& drugOrder.getDiscontinuedReason().getConceptId().equals(ConceptDictionary.PROPHYLAXIS_REASON_FOR_STOPPING_CD4_IMPROVEMENT))
+			if (drugOrder != null && Utils.getDiscontinuedReason(drugOrder) != null 
+					&& Utils.getDiscontinuedReason(drugOrder).getConceptId().equals(ConceptDictionary.PROPHYLAXIS_REASON_FOR_STOPPING_CD4_IMPROVEMENT))
 				return true;
 			return false;
 		}
 		public boolean isTermine(){
-			if (drugOrder != null && drugOrder.getDiscontinuedReason() != null 
-					&& drugOrder.getDiscontinuedReason().getConceptId().equals(ConceptDictionary.PROPHYLAXIS_REASON_FOR_STOPPING_TERMINE))
+			if (drugOrder != null && Utils.getDiscontinuedReason(drugOrder) != null 
+					&& Utils.getDiscontinuedReason(drugOrder).getConceptId().equals(ConceptDictionary.PROPHYLAXIS_REASON_FOR_STOPPING_TERMINE))
 				return true;
 			return false;
 		}
 		public boolean isReasonForStoppingOther(){
-			if (drugOrder != null && drugOrder.getDiscontinuedReason() != null 
+			if (drugOrder != null && Utils.getDiscontinuedReason(drugOrder) != null 
 					&& !isCd4Improved() && !isOutOfStock() && !isAbandoned() && !isToxicity())
 				return true;
 			return false;
@@ -65,7 +66,7 @@ public class ProphylaxisMapping extends DrugOrder {
 		}
 		public String getDiscontinueReasonOther(){
 			if (this.isReasonForStoppingOther())
-				return drugOrder.getDiscontinuedReason().getName(Context.getLocale()).getName();
+				return Utils.getDiscontinuedReason(drugOrder).getName(Context.getLocale()).getName();
 			return "";
 		}
 		

@@ -8,6 +8,7 @@ import java.util.List;
 import org.openmrs.DrugOrder;
 import org.openmrs.Obs;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.rwandahivflowsheet.utils.Utils;
 
 public class TbEpisodeMapping implements Comparable<TbEpisodeMapping>{
 
@@ -165,8 +166,8 @@ public class TbEpisodeMapping implements Comparable<TbEpisodeMapping>{
 	
 	public boolean isCured() {
 		if (this.getContinuationPhaseDrugOrder() != null &&
-			this.getContinuationPhaseDrugOrder().getDiscontinuedReason()!= null
-			&& this.getContinuationPhaseDrugOrder().getDiscontinuedReason().getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_GUERI_CURED)){
+				Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder())!= null
+			&& Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder()).getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_GUERI_CURED)){
 			return true;
 	}
 		return false;
@@ -174,47 +175,47 @@ public class TbEpisodeMapping implements Comparable<TbEpisodeMapping>{
 	
 	public boolean isFailed(){
 		if (this.getContinuationPhaseDrugOrder() != null &&
-				this.getContinuationPhaseDrugOrder().getDiscontinuedReason()!= null
-				&& this.getContinuationPhaseDrugOrder().getDiscontinuedReason().getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_ECHEC_FAILED)){
+				Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder())!= null
+				&& Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder()).getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_ECHEC_FAILED)){
 				return true;
 		}
 			return false;
 	}
 	public boolean isComplete(){
 		if (this.getContinuationPhaseDrugOrder() != null &&
-				this.getContinuationPhaseDrugOrder().getDiscontinuedReason()!= null
-				&& this.getContinuationPhaseDrugOrder().getDiscontinuedReason().getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_COMPLETE)){
+				Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder())!= null
+				&& Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder()).getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_COMPLETE)){
 				return true;
 		}
 			return false;
 	}
 	public boolean isAbandoned(){
 		if (this.getContinuationPhaseDrugOrder() != null &&
-				this.getContinuationPhaseDrugOrder().getDiscontinuedReason()!= null
-				&& this.getContinuationPhaseDrugOrder().getDiscontinuedReason().getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_ABAONDONED)){
+				Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder())!= null
+				&& Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder()).getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_ABAONDONED)){
 				return true;
 		}
 			return false;
 	}
 	public boolean isTransfered(){
 		if (this.getContinuationPhaseDrugOrder() != null &&
-				this.getContinuationPhaseDrugOrder().getDiscontinuedReason()!= null
-				&& this.getContinuationPhaseDrugOrder().getDiscontinuedReason().getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_TRANSFERED)){
+				Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder())!= null
+				&& Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder()).getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_TRANSFERED)){
 				return true;
 		}
 			return false;
 	}
 	public boolean isDead(){
 		if (this.getContinuationPhaseDrugOrder() != null &&
-				this.getContinuationPhaseDrugOrder().getDiscontinuedReason()!= null
-				&& this.getContinuationPhaseDrugOrder().getDiscontinuedReason().getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_DIED)){
+				Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder())!= null
+				&& Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder()).getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_DIED)){
 				return true;
 		}
 			return false;
 	}
 	public boolean isOther(){
 		if (this.getContinuationPhaseDrugOrder() != null &&
-				this.getContinuationPhaseDrugOrder().getDiscontinuedReason()!= null
+				Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder())!= null
 				&& !isCured() && !isFailed() && !isComplete() && !isAbandoned() && !isTransfered() && !isDead()){
 				return true;
 		}
@@ -222,9 +223,9 @@ public class TbEpisodeMapping implements Comparable<TbEpisodeMapping>{
 	}
 	public String getOutcomeOther(){
 		if (this.getContinuationPhaseDrugOrder() != null &&
-				this.getContinuationPhaseDrugOrder().getDiscontinuedReason()!= null
+				Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder())!= null
 				&& !isCured() && !isFailed() && !isComplete() && !isAbandoned() && !isTransfered() && !isDead()){
-				return this.getContinuationPhaseDrugOrder().getDiscontinuedReason().getName(Context.getLocale()).getName();
+				return Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder()).getName(Context.getLocale()).getName();
 		}
 			return "";
 	}

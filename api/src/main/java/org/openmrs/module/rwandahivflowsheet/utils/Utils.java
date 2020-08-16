@@ -7,9 +7,9 @@ import org.openmrs.api.context.Context;
 
 public class Utils {  
 
-	public  static Concept getDiscontinuedReason(DrugOrder dor){
+	public  static Concept getDiscontinuedReason(DrugOrder drugOrder){
 		Concept reason = null;
-		Order discontinuationOrder = Context.getOrderService().getDiscontinuationOrder(dor);	
+		Order discontinuationOrder = Context.getOrderService().getDiscontinuationOrder(drugOrder);	
 		if(discontinuationOrder != null) {
 			reason = discontinuationOrder.getOrderReason();
 		}

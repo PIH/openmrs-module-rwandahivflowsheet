@@ -225,7 +225,7 @@ public class TbEpisodeMapping implements Comparable<TbEpisodeMapping>{
 		if (this.getContinuationPhaseDrugOrder() != null &&
 				Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder())!= null
 				&& !isCured() && !isFailed() && !isComplete() && !isAbandoned() && !isTransfered() && !isDead()){
-				return Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder()).getName(Context.getLocale()).getName();
+				return Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder()).getDisplayString();
 		}
 			return "";
 	}

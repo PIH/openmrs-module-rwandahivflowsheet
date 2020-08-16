@@ -66,7 +66,7 @@ public class ProphylaxisMapping extends DrugOrder {
 		}
 		public String getDiscontinueReasonOther(){
 			if (this.isReasonForStoppingOther())
-				return Utils.getDiscontinuedReason(drugOrder).getName(Context.getLocale()).getName();
+				return Utils.getDiscontinuedReason(drugOrder).getDisplayString();
 			return "";
 		}
 		
@@ -112,7 +112,7 @@ public class ProphylaxisMapping extends DrugOrder {
 		public String getProphylaxisTypeOther(){
 			if (drugOrder != null && drugOrder.getConcept() != null 
 					&& !isCotrimoxisole() && !isFluconazole() && !isDapsone())
-				return drugOrder.getConcept().getName(Context.getLocale()).getName();
+				return drugOrder.getConcept().getDisplayString();
 			return "";
 		}
 		

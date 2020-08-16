@@ -434,7 +434,7 @@ public class FormDataModel {
 			if (o.getDrug() != null)
 				ret.append(o.getDrug().getName());
 			else
-				ret.append(o.getConcept().getName(Context.getLocale()).getName());
+				ret.append(o.getConcept().getDisplayString());
 			if (i.hasNext())
 				ret.append(" ");
 		}
@@ -1046,7 +1046,7 @@ public class FormDataModel {
 			return "";
 		
 		else if (o instanceof Concept)
-			return ((Concept) o).getName().toString();
+			return ((Concept) o).getDisplayString();
 		else if (o instanceof Drug)
 			return ((Drug) o).getName();
 		else if (o instanceof Location)

@@ -4,10 +4,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.openmrs.Concept;
-import org.openmrs.Encounter;
 import org.openmrs.Obs;
-import org.openmrs.api.context.Context;
 import org.openmrs.module.rwandahivflowsheet.mapper.Image;
 
 public class ImageMapping extends ObsMapping implements Comparable<ImageMapping>, Image {
@@ -182,12 +179,12 @@ public class ImageMapping extends ObsMapping implements Comparable<ImageMapping>
 			if (o.getConcept().getConceptId().equals(ConceptDictionary.TESTS_ORDERED_NON_CODED)){
 				return o.getValueText();
 			} else if (o.getConcept().getConceptId().equals(ConceptDictionary.XRAY_CHEST) || o.getConcept().getConceptId().equals(ConceptDictionary.CHEST_XRAY) || o.getConcept().getConceptId().equals(ConceptDictionary.COMPUTED_TOMOGRAPHY_SCAN_HEAD)) {
-				return o.getConcept().getName().getName();
+				return o.getConcept().getDisplayString();
 			} else if (o.getValueCoded() != null)
 				try {
-					return o.getValueCoded().getName(Context.getLocale()).getName();
+					return o.getValueCoded().getDisplayString();
 				} catch (Exception ex){
-					return o.getValueCoded().getName().getName();
+					return o.getValueCoded().getDisplayString();
 				}
 		}
 		

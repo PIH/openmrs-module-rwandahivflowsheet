@@ -238,8 +238,7 @@ public class AdultHivFlowsheetFormData extends HivFlowsheetFormData {
     		Set<String> reasons = new HashSet<String>();
     		for (DrugOrder dor :drugOrders){
     			if (Utils.getDiscontinuedReason(dor) != null 
-    					 && (((dor.getEffectiveStopDate() != null && dor.getEffectiveStopDate().before(maxEndDate)) 
-    							 ||   (dor.getAutoExpireDate() != null && dor.getAutoExpireDate().before(maxEndDate))))){
+    					 && dor.getEffectiveStopDate() != null && dor.getEffectiveStopDate().before(maxEndDate)){
     				   
     				   reasons.add(Utils.getDiscontinuedReason(dor).getDisplayString());
     				   

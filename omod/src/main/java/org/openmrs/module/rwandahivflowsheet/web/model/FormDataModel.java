@@ -44,6 +44,8 @@ import org.openmrs.api.context.Context;
 import org.openmrs.cohort.Cohort;
 import org.openmrs.module.reportingcompatibility.service.ReportingCompatibilityService;
 import org.openmrs.module.rwandahivflowsheet.impl.pih.ConceptDictionary;
+import org.openmrs.parameter.OrderSearchCriteria;
+import org.openmrs.parameter.OrderSearchCriteriaBuilder;
 import org.openmrs.util.OpenmrsUtil;
 
 public class FormDataModel {
@@ -441,18 +443,17 @@ public class FormDataModel {
 		return ret.toString();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<DrugOrder> getDrugOrdersByPatient(Patient patient){
-		List<DrugOrder> ret = new ArrayList<DrugOrder>();
-		List<Order> allPatientOrders = Context.getOrderService().getAllOrdersByPatient(patient);
-		if (allPatientOrders != null && allPatientOrders.size() > 0) {
-			for (Order order : allPatientOrders) {
-				if(order.getOrderType().equals(Context.getOrderService().getOrderTypeByUuid(OrderType.DRUG_ORDER_TYPE_UUID))) {
-					ret.add((DrugOrder)order);
-				}
-			}
-		}
-		return ret;
+		
+		OrderType drugOrderType = Context.getOrderService().getOrderTypeByUuid(OrderType.DRUG_ORDER_TYPE_UUID);
+
+		OrderSearchCriteria orderSearchCriteria = new OrderSearchCriteriaBuilder().setPatient(patient)
+				.setOrderTypes(Collections.singletonList(drugOrderType)).build();
+
+		return (List)Context.getOrderService().getOrders(orderSearchCriteria);
 	}
+	
 	public List<DrugOrder> getAllPatientDrugOrders(){
 		List<DrugOrder> ret = new ArrayList<DrugOrder>();
 		if (allPatientDrugOrders == null || allPatientDrugOrders.size() == 0){

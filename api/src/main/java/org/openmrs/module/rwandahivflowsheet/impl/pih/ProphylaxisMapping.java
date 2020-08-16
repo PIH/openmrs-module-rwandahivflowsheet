@@ -118,10 +118,7 @@ public class ProphylaxisMapping extends DrugOrder {
 		
 		public Date getStopDate(){
 			if (drugOrder != null){
-				if (drugOrder.getEffectiveStopDate() != null)
-					return drugOrder.getEffectiveStopDate();
-				if (drugOrder.getAutoExpireDate() != null)
-					return drugOrder.getAutoExpireDate();
+				return drugOrder.getEffectiveStopDate();
 			}
 			return null;
 		}

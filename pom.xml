@@ -19,7 +19,7 @@
     <properties>
         <openMRSVersion>2.3.0</openMRSVersion>
         <heightweighttrackerVersion>1.0.3</heightweighttrackerVersion>
-        <reportingcompatibilityVersion>2.0.7-SNAPSHOT</reportingcompatibilityVersion>
+        <reportingcompatibilityVersion>2.0.6</reportingcompatibilityVersion>
         <htmlformentryVersion>2.6</htmlformentryVersion>
         <legacyuiVersion>1.6.0</legacyuiVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

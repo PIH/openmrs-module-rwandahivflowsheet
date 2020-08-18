@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.openmrs.DrugOrder;
 import org.openmrs.Obs;
-import org.openmrs.api.context.Context;
 import org.openmrs.module.rwandahivflowsheet.utils.Utils;
 
 public class TbEpisodeMapping implements Comparable<TbEpisodeMapping>{
@@ -29,8 +28,8 @@ public class TbEpisodeMapping implements Comparable<TbEpisodeMapping>{
 		Date initialDate = null;
 		for (DrugOrder dor : tbDrugOrders){
 			if (initialDate == null)
-				initialDate = dor.getEffectiveStartDate();
-			else if (dor.getEffectiveStartDate().getTime() > initialDate.getTime() && (
+				initialDate = dor.getDateActivated();
+			else if (dor.getDateActivated().getTime() > initialDate.getTime() && (
 					dor.getConcept().getConceptId().equals(ConceptDictionary.TB_DRUG_RH) 
 					|| dor.getConcept().getConceptId().equals(ConceptDictionary.TB_DRUG_RHE) )
 					|| dor.getConcept().getConceptId().equals(ConceptDictionary.TB_DRUG_RHZ))
@@ -64,14 +63,14 @@ public class TbEpisodeMapping implements Comparable<TbEpisodeMapping>{
 
 	public Date getEpisodeDate() {
 		if (tbDrugOrders.size() > 0)
-			return tbDrugOrders.get(0).getEffectiveStartDate();
+			return tbDrugOrders.get(0).getDateActivated();
 		return null;
 	}
 
 	public Date getEpisodeEnd(){
 		if (tbDrugOrders.size() > 0){
 			Calendar cal = Calendar.getInstance();
-			cal.setTime(tbDrugOrders.get(0).getEffectiveStartDate());
+			cal.setTime(tbDrugOrders.get(0).getDateActivated());
 			cal.add(Calendar.DAY_OF_MONTH, Integer.valueOf((356/2 + 30)));
 			return cal.getTime();
 		}	

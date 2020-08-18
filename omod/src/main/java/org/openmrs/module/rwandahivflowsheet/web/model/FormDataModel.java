@@ -25,7 +25,6 @@ import org.openmrs.DrugOrder;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Location;
-import org.openmrs.Order;
 import org.openmrs.OrderType;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
@@ -461,7 +460,7 @@ public class FormDataModel {
 				Context.getOrderService().getAllOrdersByPatient(patient);
 		    	Collections.sort(tmp, new Comparator<DrugOrder>() {  //ascending
 		            public int compare(DrugOrder left, DrugOrder right) {
-		                if (left.getEffectiveStartDate().getTime() < right.getEffectiveStartDate().getTime()) 
+		                if (left.getDateActivated().getTime() < right.getDateActivated().getTime()) 
 		               	 return -1; 
 		                return 1;
 		                
@@ -512,8 +511,8 @@ public class FormDataModel {
 			return null;
 		Date earliest = null;
 		for (DrugOrder o : patientOrders) {
-			if (earliest == null || OpenmrsUtil.compareWithNullAsLatest(o.getEffectiveStartDate(), earliest) < 0)
-				earliest = o.getEffectiveStartDate();
+			if (earliest == null || OpenmrsUtil.compareWithNullAsLatest(o.getDateActivated(), earliest) < 0)
+				earliest = o.getDateActivated();
 		}
 		return earliest;
 	}

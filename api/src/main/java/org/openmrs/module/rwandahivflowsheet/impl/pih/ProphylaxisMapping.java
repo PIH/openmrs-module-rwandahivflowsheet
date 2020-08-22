@@ -125,7 +125,7 @@ public class ProphylaxisMapping extends DrugOrder {
 		
 		public Date getStartDate(){
 			if (drugOrder != null)
-				return drugOrder.getDateActivated();
+				return drugOrder.getEffectiveStartDate();
 			return null;
 		}
 	

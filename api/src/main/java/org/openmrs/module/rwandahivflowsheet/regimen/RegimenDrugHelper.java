@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.openmrs.DrugOrder;
 import org.openmrs.module.rwandahivflowsheet.impl.pih.ConceptDictionary;
+import org.openmrs.module.rwandahivflowsheet.utils.Utils;
 
 public class RegimenDrugHelper {
 	
@@ -41,8 +42,8 @@ public class RegimenDrugHelper {
 		
 		boolean foundStopReason = false;
 		for(DrugOrder drugOrder : drugOrders) {
-			if(drugOrder.getDiscontinuedReason() != null)
-				foundStopReason |= drugOrder.getDiscontinuedReason().getConceptId() == stopConceptId;
+			if(Utils.getDiscontinuedReason(drugOrder) != null)
+				foundStopReason |= Utils.getDiscontinuedReason(drugOrder).getConceptId() == stopConceptId;
 		}
 
 		return foundStopReason;

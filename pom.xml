@@ -17,9 +17,11 @@
     </modules>
 
     <properties>
-        <openMRSVersion>1.9.9</openMRSVersion>
+        <openMRSVersion>2.3.0</openMRSVersion>
         <heightweighttrackerVersion>1.0.3</heightweighttrackerVersion>
+        <reportingcompatibilityVersion>2.0.6</reportingcompatibilityVersion>
         <htmlformentryVersion>2.6</htmlformentryVersion>
+        <legacyuiVersion>1.6.0</legacyuiVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <MODULE_ID>${project.parent.artifactId}</MODULE_ID>
         <MODULE_NAME>Rwanda HIV Flowsheet</MODULE_NAME>
@@ -35,7 +37,12 @@
             <version>${heightweighttrackerVersion}</version>
             <scope>provided</scope>
         </dependency>
-
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>reportingcompatibility-api</artifactId>
+			<version>${reportingcompatibilityVersion}</version>
+			<scope>provided</scope>
+		</dependency>
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>htmlformentry-api</artifactId>

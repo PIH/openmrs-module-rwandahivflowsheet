@@ -20,6 +20,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.rwandahivflowsheet.impl.pih.ConceptDictionary;
 import org.openmrs.module.rwandahivflowsheet.impl.pih.ProphylaxisMapping;
 import org.openmrs.module.rwandahivflowsheet.regimen.RegimenDrugHelper;
+import org.openmrs.module.rwandahivflowsheet.utils.Utils;
 import org.openmrs.module.rwandahivflowsheet.web.UIHelper;
 
 public class AdultHivFlowsheetFormData extends HivFlowsheetFormData {
@@ -45,7 +46,7 @@ public class AdultHivFlowsheetFormData extends HivFlowsheetFormData {
 			
 			if(patientState != null)
 			{
-				return patientState.getState().getConcept().getBestName(Context.getLocale()).getName();
+				return patientState.getState().getConcept().getDisplayString();
 			}
 		}
 		return "";
@@ -236,11 +237,10 @@ public class AdultHivFlowsheetFormData extends HivFlowsheetFormData {
     		
     		Set<String> reasons = new HashSet<String>();
     		for (DrugOrder dor :drugOrders){
-    			if (dor.getDiscontinuedReason() != null 
-    					 && (((dor.getDiscontinuedDate() != null && dor.getDiscontinuedDate().before(maxEndDate)) 
-    							 ||   (dor.getAutoExpireDate() != null && dor.getAutoExpireDate().before(maxEndDate))))){
+    			if (Utils.getDiscontinuedReason(dor) != null 
+    					 && dor.getEffectiveStopDate() != null && dor.getEffectiveStopDate().before(maxEndDate)){
     				   
-    				   reasons.add(dor.getDiscontinuedReason().getBestName(Context.getLocale()).getName());
+    				   reasons.add(Utils.getDiscontinuedReason(dor).getDisplayString());
     				   
     			}    				
     		}
@@ -256,7 +256,7 @@ public class AdultHivFlowsheetFormData extends HivFlowsheetFormData {
     	
     	builder.append("</tr>\n");
     	arvRowNum++;
-		//<lookup complexExpression="#if($fn.getDrugOrders(''))#set($drugOrders = $fn.getDrugOrders('ANTIRETROVIRAL DRUGS'))#foreach($drugOrder in $drugOrders) &lt;tr&gt; &lt;td align=&quot;center&quot;&gt; &#x2713; &lt;/td&gt;     &lt;td&gt; Commencer: $!{fn.formatDate('$FormatDate_General', $drugOrder.getStartDate())} &lt;br/&gt;$!{drugOrder.getDrug().getName()} $!{drugOrder.getDose()}$!{drugOrder.getUnits().replaceAll('tab\(s\)', 'ce')} $!{drugOrder.getFrequency().replaceAll(' x 7 days/week', '').replaceAll('day', 'j')}&lt;/td&gt; #if($drugOrder.getDiscontinued())&lt;td align=&quot;center&quot;&gt; &#x2713; &lt;/td&gt;  &lt;td&gt; Arret: $!{fn.formatDate('$FormatDate_General', $drugOrder.getDiscontinuedDate())} &lt;br/&gt;Raison: $!{drugOrder.getDiscontinuedReason().getName()} &lt;/td&gt; #else &lt;td&gt;  &lt;/td&gt;  &lt;td&gt; Arret: $DateTextPlaceHolder &lt;br/&gt;Raison:  &lt;/td&gt; #end &lt;/tr&gt;#end#end" />
+		//<lookup complexExpression="#if($fn.getDrugOrders(''))#set($drugOrders = $fn.getDrugOrders('ANTIRETROVIRAL DRUGS'))#foreach($drugOrder in $drugOrders) &lt;tr&gt; &lt;td align=&quot;center&quot;&gt; &#x2713; &lt;/td&gt;     &lt;td&gt; Commencer: $!{fn.formatDate('$FormatDate_General', $drugOrder.getEffectiveStartDate())} &lt;br/&gt;$!{drugOrder.getDrug().getName()} $!{drugOrder.getDose()}$!{drugOrder.getUnits().replaceAll('tab\(s\)', 'ce')} $!{drugOrder.getFrequency().replaceAll(' x 7 days/week', '').replaceAll('day', 'j')}&lt;/td&gt; #if($drugOrder.getDiscontinued())&lt;td align=&quot;center&quot;&gt; &#x2713; &lt;/td&gt;  &lt;td&gt; Arret: $!{fn.formatDate('$FormatDate_General', $drugOrder.getEffectiveStopDate())} &lt;br/&gt;Raison: $!{drugOrder.getDiscontinuedReason().getName()} &lt;/td&gt; #else &lt;td&gt;  &lt;/td&gt;  &lt;td&gt; Arret: $DateTextPlaceHolder &lt;br/&gt;Raison:  &lt;/td&gt; #end &lt;/tr&gt;#end#end" />
     }
 
     public List<ProphylaxisMapping> getProphylaxisEpisodes(){

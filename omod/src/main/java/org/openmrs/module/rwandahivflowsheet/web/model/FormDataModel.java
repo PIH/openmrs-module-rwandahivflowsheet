@@ -19,13 +19,13 @@ import java.util.Vector;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.Cohort;
 import org.openmrs.Concept;
 import org.openmrs.Drug;
 import org.openmrs.DrugOrder;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Location;
+import org.openmrs.OrderType;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.PatientIdentifierType;
@@ -38,10 +38,13 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.PatientService;
-import org.openmrs.api.PatientSetService;
 import org.openmrs.api.ProgramWorkflowService;
 import org.openmrs.api.context.Context;
+import org.openmrs.cohort.Cohort;
+import org.openmrs.module.reportingcompatibility.service.ReportingCompatibilityService;
 import org.openmrs.module.rwandahivflowsheet.impl.pih.ConceptDictionary;
+import org.openmrs.parameter.OrderSearchCriteria;
+import org.openmrs.parameter.OrderSearchCriteriaBuilder;
 import org.openmrs.util.OpenmrsUtil;
 
 public class FormDataModel {
@@ -94,7 +97,7 @@ public class FormDataModel {
 	// Map<tablename+columnname, Map<personId, columnvalue>>
 	private Map<String, Map<Integer, Object>> personAttributeMap = new HashMap<String, Map<Integer, Object>>();
 	
-	private PatientSetService patientSetService;
+	private ReportingCompatibilityService patientSetService;
 	
 	private PatientService patientService;
 	
@@ -107,7 +110,7 @@ public class FormDataModel {
 	private List<Encounter> encounterTypeEncs = new ArrayList<Encounter>();
 	
 	public FormDataModel() {
-		this.patientSetService = Context.getPatientSetService();
+		this.patientSetService = Context.getService(ReportingCompatibilityService.class);
 		this.patientService = Context.getPatientService();
 		this.conceptService = Context.getConceptService();
 		this.encounterService = Context.getEncounterService();
@@ -432,21 +435,32 @@ public class FormDataModel {
 			if (o.getDrug() != null)
 				ret.append(o.getDrug().getName());
 			else
-				ret.append(o.getConcept().getBestName(Context.getLocale()).getName());
+				ret.append(o.getConcept().getDisplayString());
 			if (i.hasNext())
 				ret.append(" ");
 		}
 		return ret.toString();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<DrugOrder> getDrugOrdersByPatient(Patient patient){
+		
+		OrderType drugOrderType = Context.getOrderService().getOrderTypeByUuid(OrderType.DRUG_ORDER_TYPE_UUID);
+
+		OrderSearchCriteria orderSearchCriteria = new OrderSearchCriteriaBuilder().setPatient(patient)
+				.setOrderTypes(Collections.singletonList(drugOrderType)).build();
+
+		return (List)Context.getOrderService().getOrders(orderSearchCriteria);
+	}
 	
 	public List<DrugOrder> getAllPatientDrugOrders(){
 		List<DrugOrder> ret = new ArrayList<DrugOrder>();
 		if (allPatientDrugOrders == null || allPatientDrugOrders.size() == 0){
-				List<DrugOrder> tmp  = Context.getOrderService().getDrugOrdersByPatient(this.getPatient());
+				List<DrugOrder> tmp  = getDrugOrdersByPatient(this.getPatient());
+				Context.getOrderService().getAllOrdersByPatient(patient);
 		    	Collections.sort(tmp, new Comparator<DrugOrder>() {  //ascending
 		            public int compare(DrugOrder left, DrugOrder right) {
-		                if (left.getStartDate().getTime() < right.getStartDate().getTime()) 
+		                if (left.getEffectiveStartDate().getTime() < right.getEffectiveStartDate().getTime()) 
 		               	 return -1; 
 		                return 1;
 		                
@@ -497,8 +511,8 @@ public class FormDataModel {
 			return null;
 		Date earliest = null;
 		for (DrugOrder o : patientOrders) {
-			if (earliest == null || OpenmrsUtil.compareWithNullAsLatest(o.getStartDate(), earliest) < 0)
-				earliest = o.getStartDate();
+			if (earliest == null || OpenmrsUtil.compareWithNullAsLatest(o.getEffectiveStartDate(), earliest) < 0)
+				earliest = o.getEffectiveStartDate();
 		}
 		return earliest;
 	}
@@ -1032,7 +1046,7 @@ public class FormDataModel {
 			return "";
 		
 		else if (o instanceof Concept)
-			return ((Concept) o).getName().toString();
+			return ((Concept) o).getDisplayString();
 		else if (o instanceof Drug)
 			return ((Drug) o).getName();
 		else if (o instanceof Location)
@@ -1152,7 +1166,7 @@ public class FormDataModel {
 				etList.add(Context.getEncounterService().getEncounterType(ConceptDictionary.ADULT_FLOWSHEET_ENCOUNTER_ID));
 			if (ConceptDictionary.PEDI_FLOWSHEET_ENCOUNTER_ID != null)
 				etList.add(Context.getEncounterService().getEncounterType(ConceptDictionary.PEDI_FLOWSHEET_ENCOUNTER_ID));
-			List<Encounter> encs =  Context.getEncounterService().getEncounters(patient, null, null, null, null, etList, null, false);
+			List<Encounter> encs =  Context.getEncounterService().getEncounters(patient, null, null, null, null, etList, null, null, null, false);
 			this.encounterTypeEncs = encs;
 			return this.encounterTypeEncs;
 		}

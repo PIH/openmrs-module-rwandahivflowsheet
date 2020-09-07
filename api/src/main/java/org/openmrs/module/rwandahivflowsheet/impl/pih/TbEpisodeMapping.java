@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.openmrs.DrugOrder;
 import org.openmrs.Obs;
-import org.openmrs.api.context.Context;
+import org.openmrs.module.rwandahivflowsheet.utils.Utils;
 
 public class TbEpisodeMapping implements Comparable<TbEpisodeMapping>{
 
@@ -28,8 +28,8 @@ public class TbEpisodeMapping implements Comparable<TbEpisodeMapping>{
 		Date initialDate = null;
 		for (DrugOrder dor : tbDrugOrders){
 			if (initialDate == null)
-				initialDate = dor.getStartDate();
-			else if (dor.getStartDate().getTime() > initialDate.getTime() && (
+				initialDate = dor.getEffectiveStartDate();
+			else if (dor.getEffectiveStartDate().getTime() > initialDate.getTime() && (
 					dor.getConcept().getConceptId().equals(ConceptDictionary.TB_DRUG_RH) 
 					|| dor.getConcept().getConceptId().equals(ConceptDictionary.TB_DRUG_RHE) )
 					|| dor.getConcept().getConceptId().equals(ConceptDictionary.TB_DRUG_RHZ))
@@ -63,14 +63,14 @@ public class TbEpisodeMapping implements Comparable<TbEpisodeMapping>{
 
 	public Date getEpisodeDate() {
 		if (tbDrugOrders.size() > 0)
-			return tbDrugOrders.get(0).getStartDate();
+			return tbDrugOrders.get(0).getEffectiveStartDate();
 		return null;
 	}
 
 	public Date getEpisodeEnd(){
 		if (tbDrugOrders.size() > 0){
 			Calendar cal = Calendar.getInstance();
-			cal.setTime(tbDrugOrders.get(0).getStartDate());
+			cal.setTime(tbDrugOrders.get(0).getEffectiveStartDate());
 			cal.add(Calendar.DAY_OF_MONTH, Integer.valueOf((356/2 + 30)));
 			return cal.getTime();
 		}	
@@ -165,8 +165,8 @@ public class TbEpisodeMapping implements Comparable<TbEpisodeMapping>{
 	
 	public boolean isCured() {
 		if (this.getContinuationPhaseDrugOrder() != null &&
-			this.getContinuationPhaseDrugOrder().getDiscontinuedReason()!= null
-			&& this.getContinuationPhaseDrugOrder().getDiscontinuedReason().getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_GUERI_CURED)){
+				Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder())!= null
+			&& Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder()).getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_GUERI_CURED)){
 			return true;
 	}
 		return false;
@@ -174,47 +174,47 @@ public class TbEpisodeMapping implements Comparable<TbEpisodeMapping>{
 	
 	public boolean isFailed(){
 		if (this.getContinuationPhaseDrugOrder() != null &&
-				this.getContinuationPhaseDrugOrder().getDiscontinuedReason()!= null
-				&& this.getContinuationPhaseDrugOrder().getDiscontinuedReason().getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_ECHEC_FAILED)){
+				Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder())!= null
+				&& Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder()).getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_ECHEC_FAILED)){
 				return true;
 		}
 			return false;
 	}
 	public boolean isComplete(){
 		if (this.getContinuationPhaseDrugOrder() != null &&
-				this.getContinuationPhaseDrugOrder().getDiscontinuedReason()!= null
-				&& this.getContinuationPhaseDrugOrder().getDiscontinuedReason().getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_COMPLETE)){
+				Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder())!= null
+				&& Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder()).getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_COMPLETE)){
 				return true;
 		}
 			return false;
 	}
 	public boolean isAbandoned(){
 		if (this.getContinuationPhaseDrugOrder() != null &&
-				this.getContinuationPhaseDrugOrder().getDiscontinuedReason()!= null
-				&& this.getContinuationPhaseDrugOrder().getDiscontinuedReason().getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_ABAONDONED)){
+				Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder())!= null
+				&& Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder()).getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_ABAONDONED)){
 				return true;
 		}
 			return false;
 	}
 	public boolean isTransfered(){
 		if (this.getContinuationPhaseDrugOrder() != null &&
-				this.getContinuationPhaseDrugOrder().getDiscontinuedReason()!= null
-				&& this.getContinuationPhaseDrugOrder().getDiscontinuedReason().getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_TRANSFERED)){
+				Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder())!= null
+				&& Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder()).getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_TRANSFERED)){
 				return true;
 		}
 			return false;
 	}
 	public boolean isDead(){
 		if (this.getContinuationPhaseDrugOrder() != null &&
-				this.getContinuationPhaseDrugOrder().getDiscontinuedReason()!= null
-				&& this.getContinuationPhaseDrugOrder().getDiscontinuedReason().getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_DIED)){
+				Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder())!= null
+				&& Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder()).getConceptId().equals(ConceptDictionary.TB_TREATMENT_OUTCOME_DIED)){
 				return true;
 		}
 			return false;
 	}
 	public boolean isOther(){
 		if (this.getContinuationPhaseDrugOrder() != null &&
-				this.getContinuationPhaseDrugOrder().getDiscontinuedReason()!= null
+				Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder())!= null
 				&& !isCured() && !isFailed() && !isComplete() && !isAbandoned() && !isTransfered() && !isDead()){
 				return true;
 		}
@@ -222,9 +222,9 @@ public class TbEpisodeMapping implements Comparable<TbEpisodeMapping>{
 	}
 	public String getOutcomeOther(){
 		if (this.getContinuationPhaseDrugOrder() != null &&
-				this.getContinuationPhaseDrugOrder().getDiscontinuedReason()!= null
+				Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder())!= null
 				&& !isCured() && !isFailed() && !isComplete() && !isAbandoned() && !isTransfered() && !isDead()){
-				return this.getContinuationPhaseDrugOrder().getDiscontinuedReason().getBestName(Context.getLocale()).getName();
+				return Utils.getDiscontinuedReason(this.getContinuationPhaseDrugOrder()).getDisplayString();
 		}
 			return "";
 	}

@@ -84,10 +84,10 @@ public class UIHelper {
 		Double dose = drugOrder.getDose();
 		String units = "";
 		String frequency = "";
-		if(drugOrder.getUnits() != null)
-			units = drugOrder.getUnits().replaceAll("tab\\(s\\)", "");
+		if(drugOrder.getDoseUnits() != null)
+			units = drugOrder.getDoseUnits().getDisplayString().replaceAll("tab\\(s\\)", "");
 		if(drugOrder.getFrequency() != null)
-			frequency = drugOrder.getFrequency().replaceAll(" x 7 days/week", "").replaceAll("day", "j");
+			frequency = drugOrder.getConcept().getDisplayString().replaceAll(" x 7 days/week", "").replaceAll("day", "j");
 		return drugName + " " + dose + units + " " + frequency;
 	}
 

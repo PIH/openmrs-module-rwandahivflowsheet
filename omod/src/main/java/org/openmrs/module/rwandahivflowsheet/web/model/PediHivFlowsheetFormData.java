@@ -23,6 +23,7 @@ import org.openmrs.module.heightweighttracker.impl.pih.WHOMapping;
 import org.openmrs.module.rwandahivflowsheet.impl.pih.ConceptDictionary;
 import org.openmrs.module.rwandahivflowsheet.impl.pih.ProphylaxisMapping;
 import org.openmrs.module.rwandahivflowsheet.regimen.RegimenDrugHelper;
+import org.openmrs.module.rwandahivflowsheet.utils.Utils;
 import org.openmrs.module.rwandahivflowsheet.web.UIHelper;
 
 public class PediHivFlowsheetFormData extends HivFlowsheetFormData {
@@ -139,7 +140,7 @@ public class PediHivFlowsheetFormData extends HivFlowsheetFormData {
 						{
 							if(dro.isDiscontinued(e.getKey()))
 							{
-								changeDate = dro.getDiscontinuedDate();
+								changeDate = dro.getEffectiveStopDate();
 							}
 						}
 					}
@@ -152,7 +153,7 @@ public class PediHivFlowsheetFormData extends HivFlowsheetFormData {
 				{
 					if(dro.isDiscontinuedRightNow())
 					{
-						changeDate = dro.getDiscontinuedDate();
+						changeDate = dro.getEffectiveStopDate();
 					}
 				}
 				if ((index == drugOrdersGroupedByStartAndEndDate.size() -1 && e.getValue().size() > 0 && changeRegimen(prevOrder, currentOrder)) || (drugOrdersGroupedByStartAndEndDate.size() == 1 && e.getValue().size() > 0 ))
@@ -331,11 +332,10 @@ public class PediHivFlowsheetFormData extends HivFlowsheetFormData {
     		
     		Set<String> reasons = new HashSet<String>();
     		for (DrugOrder dor :drugOrders){
-    			if (dor.getDiscontinuedReason() != null 
-    					 && (((dor.getDiscontinuedDate() != null && dor.getDiscontinuedDate().before(maxEndDate)) 
-    							 ||   (dor.getAutoExpireDate() != null && dor.getAutoExpireDate().before(maxEndDate))))){
+    			if (Utils.getDiscontinuedReason(dor) != null 
+    					 && (dor.getEffectiveStopDate() != null && dor.getEffectiveStopDate().before(maxEndDate))){
     				   
-    				   reasons.add(dor.getDiscontinuedReason().getBestName(Context.getLocale()).getName());
+    				   reasons.add(Utils.getDiscontinuedReason(dor).getDisplayString());
     				   
     			}    				
     		}

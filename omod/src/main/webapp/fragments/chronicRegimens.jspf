@@ -18,24 +18,24 @@
 				<c:forEach var="otherMedication" items="${formData.otherMedications}">
 				<jsp:useBean id="otherMedication" type="org.openmrs.DrugOrder" />
 					<tr>
-						<td class="section-emr"><c:if test="${!empty otherMedication.startDate}">&#x2713;</c:if><c:if test="${empty otherMedication.startDate}">&nbsp;</c:if></td>
+						<td class="section-emr"><c:if test="${!empty otherMedication.dateActivated}">&#x2713;</c:if><c:if test="${empty otherMedication.dateActivated}">&nbsp;</c:if></td>
 						<td><span class="value-data"><%= UIHelper.formatRegimenDisplaySummary(otherMedication) %></span></td>
 						<td>
-							<span class="value-date"><c:if test="${!empty otherMedication.startDate}"><openmrs:formatDate date="${otherMedication.startDate}" format="${FormatDate_General}"/></c:if><c:if test="${empty otherMedication.startDate}">${DateTextPlaceHolder}</c:if></span>
+							<span class="value-date"><c:if test="${!empty otherMedication.dateActivated}"><openmrs:formatDate date="${otherMedication.dateActivated}" format="${FormatDate_General}"/></c:if><c:if test="${empty otherMedication.dateActivated}">${DateTextPlaceHolder}</c:if></span>
 						</td>
-						<td class="section-emr"><c:if test="${!empty otherMedication.discontinuedDate || !empty otherMedication.autoExpireDate}">&#x2713;</c:if><c:if test="${empty otherMedication.discontinuedDate && empty otherMedication.autoExpireDate}">&nbsp;</c:if></td>
+						<td class="section-emr"><c:if test="${!empty otherMedication.dateStopped || !empty otherMedication.autoExpireDate}">&#x2713;</c:if><c:if test="${empty otherMedication.dateStopped && empty otherMedication.autoExpireDate}">&nbsp;</c:if></td>
 						<td>
-							<c:if test="${empty otherMedication.discontinuedDate && empty otherMedication.autoExpireDate}">
+							<c:if test="${empty otherMedication.dateStopped && empty otherMedication.autoExpireDate}">
 								<span class="value-date">${DateTextPlaceHolder}</span>
 							</c:if>
-							<c:if test="${!empty otherMedication.discontinuedDate && empty otherMedication.autoExpireDate}">
-								<span class="value-date"><openmrs:formatDate date="${otherMedication.discontinuedDate}" format="${FormatDate_General}"/></span>
+							<c:if test="${!empty otherMedication.dateStopped && empty otherMedication.autoExpireDate}">
+								<span class="value-date"><openmrs:formatDate date="${otherMedication.dateStopped}" format="${FormatDate_General}"/></span>
 							</c:if>
-							<c:if test="${empty otherMedication.discontinuedDate && !empty otherMedication.autoExpireDate}">
+							<c:if test="${empty otherMedication.dateStopped && !empty otherMedication.autoExpireDate}">
 								<span class="value-date"><openmrs:formatDate date="${otherMedication.autoExpireDate}" format="${FormatDate_General}"/></span>
 							</c:if>
 						</td>
-						<td><span class="value-data">${otherMedication.discontinuedReason.name}</span></td>
+						<td></td>
 					</tr>
 				</c:forEach>
 			</tbody>

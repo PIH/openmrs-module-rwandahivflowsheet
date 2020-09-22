@@ -173,9 +173,9 @@
 <%@ include file="fragments/tabs.jspf"%>
 
 <div id="regimen-section">
-	
+
 	<%@ include file="fragments/arvRegimen.jspf"%>
-	
+
 	<div id="tb-regimen-section"> <!-- TRAITEMENT ANTITUBERCULEUX -->
 		<table class="section-table">
 			<thead>
@@ -214,14 +214,14 @@
 								<%= UIHelper.getCheckBoxWidget(episode.isRetreatment(), "Retraitement") %>
 								<%= UIHelper.getCheckBoxWidget(episode.isMdrtb(), "MDR-TB") %>
 							<br/>
-							
+
 							<span class="value-label">Marquer le traitement Anti-TB: </span><span class="value-data"><%= UIHelper.formatRegimenDisplaySummary(episode.getInitialDrugOrder()) %></span></td>
 						<td class="section-emr"></td>
 						<td>
 							<span class="value-label">Phase de continuation</span><br/>
-							
+
 								<c:if test="${!empty episode.continuationPhaseDrugOrder}">
-									<span class="value-data"><openmrs:formatDate date="${episode.continuationPhaseDrugOrder.startDate}" format="${FormatDate_General}"/><br/>
+									<span class="value-data"><openmrs:formatDate date="${episode.continuationPhaseDrugOrder.dateActivated}" format="${FormatDate_General}"/><br/>
 									(<%= UIHelper.formatRegimenDisplaySummary(episode.getContinuationPhaseDrugOrder()) %>)</span>
 								</c:if>
 								<c:if test="${empty  episode.continuationPhaseDrugOrder}"><span class="value-date">${DateTextPlaceHolder}</span></c:if>
@@ -231,7 +231,7 @@
 							<span class="value-label">Arrêt: </span><span class="value-date">
 								<c:choose>
 									<c:when test="${!empty episode.continuationPhaseDrugOrder}">
-										<openmrs:formatDate date="${episode.continuationPhaseDrugOrder.discontinuedDate}" format="${FormatDate_General}"/>
+										<openmrs:formatDate date="${episode.continuationPhaseDrugOrder.dateStopped}" format="${FormatDate_General}"/>
 									</c:when>
 									<c:otherwise>
 										${DateTextPlaceHolder}
@@ -248,7 +248,7 @@
 							<%= UIHelper.getCheckBoxWidget(episode.isTransfered(), "Transféré") %>
 							<%= UIHelper.getCheckBoxWidget(episode.isDead(), "Décès") %>
 							<%= UIHelper.getCheckBoxWidget(episode.isOther(), "Autre:") %><c:if test="${episode.other}"><span class="value-data">${episode.outcomeOther}</span></c:if>
-						</td> 
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -268,7 +268,7 @@
 				<c:forEach var="prophylaxisepisode" items="${formData.prophylaxisEpisodes}">
 				<jsp:useBean id="prophylaxisepisode" type="org.openmrs.module.rwandahivflowsheet.impl.pih.ProphylaxisMapping" />
 					<tr>
-						<td class="section-emr"><c:if test="${!empty prophylaxisepisode.startDate}">&#x2713;</c:if><c:if test="${empty prophylaxisepisode.startDate}">&nbsp;</c:if></td>
+						<td class="section-emr"><c:if test="${!empty prophylaxisepisode.dateActivated}">&#x2713;</c:if><c:if test="${empty prophylaxisepisode.dateActivated}">&nbsp;</c:if></td>
 						<td>
 							<span class="value-label">Medicament:</span>
 							<%= UIHelper.getCheckBoxWidget(prophylaxisepisode.isCotrimoxisole(), "Cotrimoxazole") %>
@@ -279,12 +279,12 @@
 						</td>
 						<td>
 							<span class="value-label">Date de début</span><br/>
-							<span class="value-date"><c:if test="${empty prophylaxisepisode.startDate}">${DateTextPlaceHolder}</c:if><c:if test="${!empty prophylaxisepisode.startDate}"><openmrs:formatDate date="${prophylaxisepisode.startDate}" format="${FormatDate_General}"/></c:if></span>
+							<span class="value-date"><c:if test="${empty prophylaxisepisode.dateActivated}">${DateTextPlaceHolder}</c:if><c:if test="${!empty prophylaxisepisode.dateActivated}"><openmrs:formatDate date="${prophylaxisepisode.dateActivated}" format="${FormatDate_General}"/></c:if></span>
 						</td>
-						<td class="section-emr"><c:if test="${!empty prophylaxisepisode.stopDate}">&#x2713;</c:if><c:if test="${empty prophylaxisepisode.stopDate}">&nbsp;</c:if></td>
+						<td class="section-emr"><c:if test="${!empty prophylaxisepisode.dateStopped}">&#x2713;</c:if><c:if test="${empty prophylaxisepisode.dateStopped}">&nbsp;</c:if></td>
 						<td>
 							<span class="value-label">Date d’arrêt</span><br/>
-							<span class="value-date"><c:if test="${empty prophylaxisepisode.stopDate}">${DateTextPlaceHolder}</c:if><c:if test="${!empty prophylaxisepisode.stopDate}"><openmrs:formatDate date="${prophylaxisepisode.stopDate}" format="${FormatDate_General}"/></c:if></span>
+							<span class="value-date"><c:if test="${empty prophylaxisepisode.dateStopped}">${DateTextPlaceHolder}</c:if><c:if test="${!empty prophylaxisepisode.dateStopped}"><openmrs:formatDate date="${prophylaxisepisode.dateStopped}" format="${FormatDate_General}"/></c:if></span>
 						</td>
 						<td>
 							<span class="value-label">Raison d’arrêt</span>

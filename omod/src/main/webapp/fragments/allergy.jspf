@@ -61,7 +61,7 @@
 							<c:forEach var="enc" items="${formData.encounterTypeEncs}">
 							    <c:if test="${fn:contains(shownAllergy, enc.encounterId) == false}">
 								<option value="${enc.encounterId}">
-									<openmrs:formatDate date="${enc.encounterDatetime}" format="dd/MM/yyyy"/> / ${enc.provider.familyName} ${enc.provider.givenName} / (${enc.location})
+									<openmrs:formatDate date="${enc.encounterDatetime}" format="dd/MM/yyyy"/> / ${enc.getEncounterProviders().iterator().next().getProvider().getPerson().getFamilyName()} ${enc.getEncounterProviders().iterator().next().getProvider().getPerson().getGivenName()} / (${enc.location})
 								</option>
 								</c:if>	
 							</c:forEach>

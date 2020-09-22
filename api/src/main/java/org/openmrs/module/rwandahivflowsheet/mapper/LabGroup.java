@@ -6,6 +6,7 @@ import java.util.List;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Obs;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.rwandahivflowsheet.impl.pih.ConceptDictionary;
 
 /**
@@ -218,6 +219,7 @@ public class LabGroup {
 	}
 	
 	public String getOtherTests() {
+
 		StringBuilder builder = new StringBuilder();
 		for(Lab lab : labs) {
 			int index = 0;
@@ -225,25 +227,25 @@ public class LabGroup {
 			for(Obs obs: lab.getOtherLabTestName())
 			{
 				boolean nameAdded = false;
-				if(obs != null && obs.getValueAsString(null) != null) {
+				if(obs != null && obs.getValueAsString(Context.getLocale()) != null) {
 					if(builder.length() > 0)
 						builder.append("; ");
-					builder.append(obs.getValueAsString(null));
+					builder.append(obs.getValueAsString(Context.getLocale()));
 					nameAdded = true;
 				}
 			
 				if(results.size() > index)
 				{
 					obs = results.get(index);
-					if(obs != null && obs.getValueAsString(null) != null && nameAdded) {
+					if(obs != null && obs.getValueAsString(Context.getLocale()) != null && nameAdded) {
 						builder.append(" = ");
-						builder.append(obs.getValueAsString(null));
+						builder.append(obs.getValueAsString(Context.getLocale()));
 					}
 				}
 				index++;
 			}
 		}
-		return builder.toString();		
+		return builder.toString();
 	}
 	
 	public Encounter getEncounter() {

@@ -35,7 +35,7 @@
 								<span class="value-date"><openmrs:formatDate date="${otherMedication.autoExpireDate}" format="${FormatDate_General}"/></span>
 							</c:if>
 						</td>
-						<td></td>
+						<td><span class="value-data">${otherMedication.orderReason.name}</span></td>
 					</tr>
 				</c:forEach>
 			</tbody>

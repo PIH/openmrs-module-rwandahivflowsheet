@@ -5,6 +5,7 @@ import java.util.Date;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Obs;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.rwandahivflowsheet.mapper.BaseObs;
 
 public abstract class ObsMapping implements BaseObs {
@@ -95,7 +96,7 @@ public abstract class ObsMapping implements BaseObs {
 	protected static boolean areObsDifferentValue(Obs one, Obs two) {
 		if(one == null ^ two == null)
 			return true;
-		if((one != null && two != null) && one.getValueAsString(null) != null && !one.getValueAsString(null).equalsIgnoreCase(two.getValueAsString(null)))
+		if((one != null && two != null) && one.getValueAsString(Context.getLocale()) != null && !one.getValueAsString(Context.getLocale()).equalsIgnoreCase(two.getValueAsString(Context.getLocale())))
 			return true;
 		
 		return false;

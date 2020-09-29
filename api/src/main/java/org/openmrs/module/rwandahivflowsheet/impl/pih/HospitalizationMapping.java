@@ -11,6 +11,7 @@ import java.util.TreeSet;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Obs;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.rwandahivflowsheet.mapper.Hospitalization;
 
 public class HospitalizationMapping extends ObsMapping implements Comparable<HospitalizationMapping>, Hospitalization {
@@ -218,7 +219,7 @@ public class HospitalizationMapping extends ObsMapping implements Comparable<Hos
 		if(!isEmr() || hospitalizationComment == null)
 			return "";
 
-		return hospitalizationComment.getValueAsString(null);
+		return hospitalizationComment.getValueAsString(Context.getLocale());
 	}
 	
 	/* (non-Javadoc)

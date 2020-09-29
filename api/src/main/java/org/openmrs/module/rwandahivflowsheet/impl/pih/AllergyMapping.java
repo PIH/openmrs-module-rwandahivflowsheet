@@ -3,6 +3,7 @@ package org.openmrs.module.rwandahivflowsheet.impl.pih;
 import java.util.*;
 
 import org.openmrs.*;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.rwandahivflowsheet.mapper.Allergy;
 
 
@@ -126,7 +127,7 @@ public class AllergyMapping extends ObsMapping implements Comparable<AllergyMapp
 		for(Obs obs : getMedications()) {
 			if(builder.length() > 0)
 				builder.append("; ");
-			builder.append(obs.getValueAsString(null));
+			builder.append(obs.getValueAsString(Context.getLocale()));
 		}
 		
 		return builder.toString();
@@ -341,14 +342,14 @@ public class AllergyMapping extends ObsMapping implements Comparable<AllergyMapp
 			if(!defaultAnswersForActionsTaken.contains(conceptId)) {
 				if(builder.length() > 0)
 					builder.append("; ");
-				builder.append(getActionsTakenCoded().get(conceptId).getValueAsString(null));
+				builder.append(getActionsTakenCoded().get(conceptId).getValueAsString(Context.getLocale()));
 			}
 		}
 		
 		for(Obs obs : actionsTakenNonCodedList) {
 			if(builder.length() > 0)
 				builder.append("; ");
-			builder.append(obs.getValueAsString(null));
+			builder.append(obs.getValueAsString(Context.getLocale()));
 		}
 		
 		return builder.toString();

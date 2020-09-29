@@ -140,7 +140,7 @@ public class OIMapping extends ObsMapping implements Comparable<OIMapping>, OI {
 		
 		for(Obs group : getObs().getGroupMembers()) {
 			if(!group.isVoided() && (group.getConcept().getConceptId().equals(ConceptDictionary.CLINICAL_IMPRESSION_COMMENTS) || group.getConcept().getConceptId().equals(ConceptDictionary.OPPORTUNISTIC_INFECTION_COMMENTS)))
-				return group.getValueAsString(null);
+				return group.getValueAsString(Context.getLocale());
 		}
 		return "";
 	}

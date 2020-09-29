@@ -174,9 +174,9 @@ public class ProblemMapping extends ObsMapping implements Comparable<ProblemMapp
 		for(Obs group : getObs().getGroupMembers()) {
 			if (!group.isVoided()){
 				if(group.getConcept().getConceptId().equals(ConceptDictionary.CLINICAL_IMPRESSION_COMMENTS))
-					return group.getValueAsString(null);
+					return group.getValueAsString(Context.getLocale());
 				if(group.getConcept().getConceptId().equals(ConceptDictionary.ASSESSMENT_COMMENTS))
-					return group.getValueAsString(null);
+					return group.getValueAsString(Context.getLocale());
 			}
 		}
 		return "";

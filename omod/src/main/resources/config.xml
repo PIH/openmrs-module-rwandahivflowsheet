@@ -101,6 +101,41 @@
 			adult form ID for new images
 		</description>
 	</globalProperty>
+	<globalProperty>
+		<property>rwandaadulthivflowsheet.Form_CbsIndexForm</property>
+		<defaultValue>b4dd2801-697e-4772-806b-425949df0322</defaultValue>
+		<description>
+			adult form CBS Index test, partner notification, recency
+		</description>
+	</globalProperty>
+	<globalProperty>
+		<property>rwandaadulthivflowsheet.Form_CbsResult</property>
+		<defaultValue>cad4fef7-d937-478b-802d-6dfb8976dc8f</defaultValue>
+		<description>
+			adult form CBS Recency result
+		</description>
+	</globalProperty>
+	<globalProperty>
+		<property>rwandaadulthivflowsheet.Form_CbsContact</property>
+		<defaultValue>a4b77098-d910-4170-8744-3a34b3b4d8e2</defaultValue>
+		<description>
+			adult form CBS Contact form
+		</description>
+	</globalProperty>
+	<globalProperty>
+		<property>rwandaadulthivflowsheet.Form_CbsEnrollment</property>
+		<defaultValue>ea547162-7214-4096-9f18-d76ec5b55d00 </defaultValue>
+		<description>
+			adult form CBS Enrollment form
+		</description>
+	</globalProperty>
+	<globalProperty>
+		<property>rwandaadulthivflowsheet.Form_CbsFollowupVisit</property>
+		<defaultValue>b6b80525-af95-4a59-b254-6af295559990</defaultValue>
+		<description>
+			adult form CBS followup visits
+		</description>
+	</globalProperty>
 	
 	<!-- PEDI FORMS -->
 	<globalProperty>
@@ -405,7 +440,21 @@ OPPORTUNISTIC_INFECTIONS = c43c0462-be15-435b-9a1a-2a3fa450247d
 OPPORTUNISTIC_INFECTIONS_NON_CODED = 35c85d2b-fbe6-4287-be3a-91e098529104
 STI_INFECTIONS = 812acd3b-08f8-4f56-8162-98e0f6b26630
 STI_INFECTIONS_NON_CODED = a8b35975-7680-4ef1-8298-de222d361eb8
-STI_SET = fc871ec0-7865-4f01-ab2f-3790f518160b 
+STI_SET = fc871ec0-7865-4f01-ab2f-3790f518160b
+
+CBS_CONTACT_CODE=41c410a4-18a4-4221-98ad-1daf1b22de4d
+CBS_CONTACT_AGE=2ecf52c4-f732-46a8-9f10-45a04ca70f49
+CBS_CONTACT_GENDER=d1ecd154-13b1-433a-8480-3213e178aff7
+RELATION_OF_THE_CONTACT_AND_INDEX_CASE=d4a45c62-5d82-43a2-856d-6c75db9fe842
+CBS_HEALTHCARE_PROVIDER_NOTIFIED_CONTACT= f7908667-e296-4be4-b41e-26bc4b5ceccb
+CBS_INDEX_NOTIFIED_CONTACT=d12bec46-f525-41b2-99c6-bd51bda4046c
+CBS_INDEX_CASE_TYPE=b45597da-318b-4dde-858b-da16f5950686
+ENROLLED_IN_CBS=0d09e8cb-6904-4465-9155-de62cc6a7c76
+CBS_FINAL_RITA_RECENCY_RESULT=a2053e28-9ce9-4647-8a96-6f1b7c62f429
+CBS_FINAL_RITA_INCONCLUSIVE=ba4b8a83-54ab-44f3-a7c5-4495ddf055bc
+CBS_ENROLLMENT_DATE=badacf97-0970-4dde-aee4-5e1c2bb125f7
+
+
 </defaultValue>
 		<description>
 			paste in a properties text file containing key, and local ID for objects.  For more explanation,

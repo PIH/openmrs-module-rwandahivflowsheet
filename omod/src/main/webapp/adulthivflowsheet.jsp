@@ -330,11 +330,10 @@
 					<%@ include file="fragments/visit_adult.jspf"%>
 					<%@ include file="fragments/cbs_followup.jspf"%>
 				</div>
-
-				<%@ include file="fragments/lab_adult.jspf"%>
-	<%@ include file="fragments/images_adult.jspf"%>
-
-</div>
+                <div style="page-break-before: always" id="orders">
+			     	<%@ include file="fragments/lab_adult.jspf"%>
+	                <%@ include file="fragments/images_adult.jspf"%>
+                </div>
 <div id="graphs">
 	<div style="page-break-before: always" id="cd4Graph"> <!-- COURBE D'EVOLUTION DES CD4 -->
 		<table class="section-graph">

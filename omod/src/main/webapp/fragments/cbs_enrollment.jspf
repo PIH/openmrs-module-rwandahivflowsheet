@@ -1,0 +1,44 @@
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<div id="cbsenrollment">
+    <table class="section-table">
+        <thead>
+            <tr>
+                <th colspan="5">CBS ENROLLMENT</th>
+            </tr>
+            <tr>
+                <th scope="col" id="col-io-emr-1" class="section-emr">EMR</th>
+                <th scope="col" id="col-io-view" class="view-row">View</th>
+                <th scope="col" id="col-io-date">Date:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:set var="shownCbsEnrollment" value=""/>
+            <c:forEach var="cbsenrollment" items="${formData.obsMapper.cbsEnrollment}">
+                <c:if test="${cbsenrollment.encounter != null  && cbsenrollment.encounter.form.formId == formData.cbsEnrollmentFormId}">
+                    <tr <c:if test="${not cbsenrollment.emr}">class="empty-row"</c:if>>
+                        <td class="section-emr"><c:if test="${cbsenrollment.emr}">&#x2713;</c:if></td>
+                            <td class="view-row" align="center">
+
+                                <a href="javascript:void(0)" onClick="showEntryAppendPopup('CBS Enrollment', ${formData.cbsEnrollmentFormId}, ${cbsenrollment.encounter.encounterId}); return false;">
+                                <img src="${pageContext.request.contextPath}/images/file.gif" title="<spring:message code="general.view"/>" border="0" align="top" />
+                            </a>
+                            <c:set var="shownCbsEnrollment" value="${shownOI},${cbsenrollment.encounter.encounterId}"/>
+
+                        </td>
+
+                        <td>
+                            <span class="value-date"><c:choose><c:when test="${cbsenrollment.emr}"><openmrs:formatDate date="${cbsenrollment.encounter.encounterDatetime}" format="${FormatDate_General}"/></c:when><c:otherwise>${DateTextPlaceHolder}</c:otherwise></c:choose></span>
+                                </td>
+
+                    </tr>
+                </c:if>
+            </c:forEach>
+            <tr class="new-item-button-row">
+                <td/>
+                <td colspan="4">
+                    <button onClick="showEntryPopup('CBS enrollment', ${formData.cbsEnrollmentFormId}); return false;">Nouveau</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

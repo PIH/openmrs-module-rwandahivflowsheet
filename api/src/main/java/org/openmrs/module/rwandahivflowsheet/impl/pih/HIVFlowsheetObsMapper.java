@@ -32,7 +32,8 @@ import org.openmrs.module.rwandahivflowsheet.mapper.Image;
 import org.openmrs.module.rwandahivflowsheet.mapper.ImagePedi;
 import org.openmrs.module.rwandahivflowsheet.mapper.Lab;
 import org.openmrs.module.rwandahivflowsheet.mapper.LabGroup;
-import org.openmrs.module.rwandahivflowsheet.mapper.OI;
+import org.openmrs.module.rwandahivflowsheet.mapper.*;
+
 import org.openmrs.module.rwandahivflowsheet.mapper.Problem;
 import org.openmrs.module.rwandahivflowsheet.mapper.Visit;
 import org.openmrs.module.rwandahivflowsheet.mapper.VisitGroup;
@@ -548,6 +549,70 @@ public class HIVFlowsheetObsMapper {
     	
     	return new ArrayList<OI>(oisLists);
     }
+
+	public Collection<CbsIndex> getCbsIndex() {
+		// Because Obs can be contained in sets make sure to order this ordered so sets are
+		// loaded first.  The individual obs will be filtered out.
+		Integer[] conceptIds = { ConceptDictionary.CBS_ENROLLMENT_DATE};
+
+		Collection<CbsIndexMapping> cbsindexsLists = getObsView(conceptIds, CbsIndexMapping.class);
+
+		cbsindexsLists.add(new CbsIndexMapping(new Obs()));
+
+		return new ArrayList<CbsIndex>(cbsindexsLists);
+	}
+
+
+	public Collection<CbsEnrollment> getCbsEnrollment() {
+		// Because Obs can be contained in sets make sure to order this ordered so sets are
+		// loaded first.  The individual obs will be filtered out.
+
+		Integer[] conceptIds = { ConceptDictionary.CBS_INDEX_CASE_TYPE};
+
+		Collection<CbsEnrollmentMapping> cbsenrollmentLists = getObsView(conceptIds, CbsEnrollmentMapping.class);
+
+		cbsenrollmentLists.add(new CbsEnrollmentMapping(new Obs()));
+
+		return new ArrayList<CbsEnrollment>(cbsenrollmentLists);
+	}
+
+	public Collection<CbsFollowup> getCbsFollowup() {
+		// Because Obs can be contained in sets make sure to order this ordered so sets are
+		// loaded first.  The individual obs will be filtered out.
+		Integer[] conceptIds = { ConceptDictionary.CBS_DEMOGRAPHIC_CHANGE};
+
+		Collection<CbsFollowupMapping> cbsfollowupLists = getObsView(conceptIds, CbsFollowupMapping.class);
+
+		cbsfollowupLists.add(new CbsFollowupMapping(new Obs()));
+
+		return new ArrayList<CbsFollowup>(cbsfollowupLists);
+	}
+
+	public Collection<CbsResult> getCbsResult() {
+		// Because Obs can be contained in sets make sure to order this ordered so sets are
+		// loaded first.  The individual obs will be filtered out.
+		Integer[] conceptIds = { ConceptDictionary.CBS_FINAL_RITA_RECENCY_RESULT};
+
+		Collection<CbsResultMapping> cbsresultLists = getObsView(conceptIds, CbsResultMapping.class);
+
+		cbsresultLists.add(new CbsResultMapping(new Obs()));
+
+		return new ArrayList<CbsResult>(cbsresultLists);
+
+	}
+
+	public Collection<CbsContact> getCbsContact() {
+		// Because Obs can be contained in sets make sure to order this ordered so sets are
+		// loaded first.  The individual obs will be filtered out.
+		Integer[] conceptIds = { ConceptDictionary.CBS_CONTACT_CODE};
+
+		Collection<CbsContactMapping> cbscontactLists = getObsView(conceptIds, CbsContactMapping.class);
+
+		cbscontactLists.add(new CbsContactMapping(new Obs()));
+
+		return new ArrayList<CbsContact>(cbscontactLists);
+
+	}
 
     public Collection<Problem> getProblems() {
     	// Because Obs can be contained in sets make sure to order this ordered so sets are

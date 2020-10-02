@@ -1,0 +1,42 @@
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<div id="cbsindex">
+    <table class="section-table">
+        <thead>
+            <tr>
+                <th colspan="5">Index test, partner notification, recency testing</th>
+            </tr>
+            <tr>
+                <th scope="col" id="col-io-emr-1" class="section-emr">EMR</th>
+                <th scope="col" id="col-io-view" class="view-row">View</th>
+                <th scope="col" id="col-io-date">Date:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:set var="shownCbsIndex" value=""/>
+            <c:forEach var="cbsindex" items="${formData.obsMapper.cbsIndex}">
+                <c:if test="${cbsindex.encounter != null && cbsindex.encounter.form.formId == formData.cbsIndexFormId}">
+                    <tr <c:if test="${not cbsindex.emr}">class="empty-row"</c:if>>
+                        <td class="section-emr"><c:if test="${cbsindex.emr}">&#x2713;</c:if></td>
+                            <td class="view-row" align="center">
+
+                                <a href="javascript:void(0)" onClick="showEntryAppendPopup('CBS Index', ${formData.cbsIndexFormId}, ${cbsindex.encounter.encounterId}); return false;">
+                                <img src="${pageContext.request.contextPath}/images/file.gif" title="<spring:message code="general.view"/>" border="0" align="top" />
+                            </a>
+                            <c:set var="shownCbsIndex" value="${shownOI},${cbsindex.encounter.encounterId}"/>
+                        </td>
+
+                        <td>
+                            <span class="value-date"><c:choose><c:when test="${cbsindex.emr}"><openmrs:formatDate date="${cbsindex.encounter.encounterDatetime}" format="${FormatDate_General}"/></c:when><c:otherwise>${DateTextPlaceHolder}</c:otherwise></c:choose></span>
+                                </td>
+                            </tr>
+                </c:if>
+            </c:forEach>
+            <tr class="new-item-button-row">
+                <td/>
+                <td colspan="4">
+                    <button onClick="showEntryPopup('Index test, partner notification, recency testing', ${formData.cbsIndexFormId}); return false;">Nouveau</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

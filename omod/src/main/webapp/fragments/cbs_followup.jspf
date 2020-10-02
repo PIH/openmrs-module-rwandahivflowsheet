@@ -1,0 +1,42 @@
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<div id="cbsfollowup">
+    <table class="section-table">
+        <thead>
+            <tr>
+                <th colspan="5">CBS Follow-up Visit</th>
+            </tr>
+            <tr>
+                <th scope="col" id="col-io-emr-1" class="section-emr">EMR</th>
+                <th scope="col" id="col-io-view" class="view-row">View</th>
+                <th scope="col" id="col-io-date">Date:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:set var="shownCbsFollowup" value=""/>
+            <c:forEach var="cbsfollowup" items="${formData.obsMapper.cbsFollowup}">
+                <c:if test="${cbsfollowup.encounter != null && cbsfollowup.encounter.form.formId == formData.cbsFollowupVisitFormId}">
+                    <tr <c:if test="${not cbsfollowup.emr}">class="empty-row"</c:if>>
+                        <td class="section-emr"><c:if test="${cbsfollowup.emr}">&#x2713;</c:if></td>
+                            <td class="view-row" align="center">
+                                <a href="javascript:void(0)" onClick="showEntryAppendPopup('CBS Followup', ${formData.cbsFollowupVisitFormId}, ${cbsfollowup.encounter.encounterId}); return false;">
+                                <img src="${pageContext.request.contextPath}/images/file.gif" title="<spring:message code="general.view"/>" border="0" align="top" />
+                            </a>
+                            <c:set var="shownCbsFollowup" value="${shownOI},${cbsfollowup.encounter.encounterId}"/>
+
+                        </td>
+
+                        <td>
+                            <span class="value-date"><c:choose><c:when test="${cbsfollowup.emr}"><openmrs:formatDate date="${cbsfollowup.encounter.encounterDatetime}" format="${FormatDate_General}"/></c:when><c:otherwise>${DateTextPlaceHolder}</c:otherwise></c:choose></span>
+                                </td>
+
+                            </tr>
+                </c:if>
+            </c:forEach>
+            <tr class="new-item-button-row">
+                <td/>
+                <td colspan="4">
+                    <button onClick="showEntryPopup('CBS Follow-up', ${formData.cbsFollowupVisitFormId}); return false;">Nouveau</button>
+            </tr>
+        </tbody>
+    </table>
+</div>

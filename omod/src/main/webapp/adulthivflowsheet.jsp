@@ -320,14 +320,20 @@
 				<%@ include file="fragments/chronic.jspf"%>		
 </div>
 
-<%@ include file="fragments/visit_adult.jspf"%>
-
-<div style="page-break-before: always" id="orders">
-
-	<%@ include file="fragments/lab_adult.jspf"%>
-	<%@ include file="fragments/images_adult.jspf"%>
-
-</div>
+				<div style="page-break-before: always" id="cbs-followup">
+					<%@ include file="fragments/cbs_index.jspf"%>
+					<%@ include file="fragments/cbs_contact.jspf"%>
+					<%@ include file="fragments/cbs_enrollment.jspf"%>
+					<%@ include file="fragments/cbs_result.jspf"%>
+				</div>
+				<div style="page-break-before: always" id="visits">
+					<%@ include file="fragments/visit_adult.jspf"%>
+					<%@ include file="fragments/cbs_followup.jspf"%>
+				</div>
+                <div style="page-break-before: always" id="orders">
+			     	<%@ include file="fragments/lab_adult.jspf"%>
+	                <%@ include file="fragments/images_adult.jspf"%>
+                </div>
 <div id="graphs">
 	<div style="page-break-before: always" id="cd4Graph"> <!-- COURBE D'EVOLUTION DES CD4 -->
 		<table class="section-graph">

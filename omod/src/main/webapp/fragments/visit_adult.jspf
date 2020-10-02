@@ -48,10 +48,10 @@
 			    <c:set var="shownAdultVisits" value=""/>
 				<c:forEach var="visitRow" items="${formData.obsMapper.visitsAdult}">
 					<jsp:useBean id="visitRow" type="org.openmrs.module.rwandahivflowsheet.mapper.VisitGroup" />
+                    <c:if test="${visitRow.encounter != null}">
 					<tr <c:if test="${not visitRow.emr}">class="empty-row"</c:if>>
 						<td class="section-emr"><c:if test="${visitRow.emr}">&#x2713;</c:if></td>
 						<td class="view-row" align="center">
-							<c:if test="${visitRow.encounter != null}">
 							<a href="javascript:void(0)" onClick="showEntryAppendPopup('Adult Visit', ${formData.visitFormId}, ${visitRow.encounter.encounterId}); return false;">
 								<img src="${pageContext.request.contextPath}/images/file.gif" title="<spring:message code="general.view"/>" border="0" align="top" />
 							</a>

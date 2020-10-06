@@ -944,7 +944,7 @@
 	</div>
 </div>
 
-<%@ include file="fragments/tabs.jspf"%>
+<%@ include file="fragments/tabs_pedi.jspf"%>
 
 <div id="regimen-section">
 	

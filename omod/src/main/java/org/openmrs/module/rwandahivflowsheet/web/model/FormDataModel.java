@@ -17,6 +17,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
 
+import com.sun.prism.shader.Solid_TextureYV12_AlphaTest_Loader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Concept;
@@ -445,7 +446,7 @@ public class FormDataModel {
 	@SuppressWarnings("unchecked")
 	public List<DrugOrder> getDrugOrdersByPatient(Patient patient){
 		
-		OrderType drugOrderType = Context.getOrderService().getOrderTypeByUuid(OrderType.DRUG_ORDER_TYPE_UUID);
+		OrderType drugOrderType = Context.getOrderService().getOrderType(Integer.parseInt(Context.getAdministrationService().getGlobalProperty("orderextension.drugOrderType")));
 
 		OrderSearchCriteria orderSearchCriteria = new OrderSearchCriteriaBuilder().setPatient(patient)
 				.setOrderTypes(Collections.singletonList(drugOrderType)).build();
@@ -460,14 +461,14 @@ public class FormDataModel {
 				Context.getOrderService().getAllOrdersByPatient(patient);
 		    	Collections.sort(tmp, new Comparator<DrugOrder>() {  //ascending
 		            public int compare(DrugOrder left, DrugOrder right) {
-		                if (left.getEffectiveStartDate().getTime() < right.getEffectiveStartDate().getTime()) 
+		                if (left.getDateActivated().getTime() < right.getDateActivated().getTime())
 		               	 return -1; 
 		                return 1;
 		                
 		             } 
 		         });
 		    	for (DrugOrder dor : tmp){
-		    		if (!dor.isVoided()){//filter out voided drug orders.
+		    		if (!dor.isVoided() && dor.getPreviousOrder()==null){//filter out voided drug orders.
 		    			ret.add(dor);
 		    		}
 		    	}
@@ -498,11 +499,17 @@ public class FormDataModel {
 			patientIdDrugOrderMap = patientSetService.getDrugOrders(getPatientSet(), drugSet);
 			drugOrderMap.put(drugSetName, patientIdDrugOrderMap);
 		}
-		
+
 		List<DrugOrder> drugOrders = patientIdDrugOrderMap.get(getPatientId());
 		if(drugOrders == null)
 			drugOrders = new ArrayList<DrugOrder>();
-		return drugOrders;
+		List<DrugOrder> drugOrdersTemp=new ArrayList<DrugOrder>();
+		for (DrugOrder dro:drugOrders) {
+			if(dro.getPreviousOrder()==null) {
+				drugOrdersTemp.add(dro);
+			}
+		}
+		return drugOrdersTemp;
 	}
 	
 	public Date getEarliestDrugStart(String drugSetName) {

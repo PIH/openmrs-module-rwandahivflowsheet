@@ -17,7 +17,6 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
 
-import com.sun.prism.shader.Solid_TextureYV12_AlphaTest_Loader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Concept;
@@ -26,6 +25,7 @@ import org.openmrs.DrugOrder;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Location;
+import org.openmrs.Order;
 import org.openmrs.OrderType;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
@@ -445,13 +445,18 @@ public class FormDataModel {
 	
 	@SuppressWarnings("unchecked")
 	public List<DrugOrder> getDrugOrdersByPatient(Patient patient){
-		
+		List<DrugOrder> drugOrders = new ArrayList<DrugOrder>();
 		OrderType drugOrderType = Context.getOrderService().getOrderType(Integer.parseInt(Context.getAdministrationService().getGlobalProperty("orderextension.drugOrderType")));
 
 		OrderSearchCriteria orderSearchCriteria = new OrderSearchCriteriaBuilder().setPatient(patient)
 				.setOrderTypes(Collections.singletonList(drugOrderType)).build();
 
-		return (List)Context.getOrderService().getOrders(orderSearchCriteria);
+		for (Order drugOrder : Context.getOrderService().getOrders(orderSearchCriteria)) {
+			if (drugOrder instanceof DrugOrder) {
+				drugOrders.add((DrugOrder) drugOrder);
+			}
+		}
+		return drugOrders;
 	}
 	
 	public List<DrugOrder> getAllPatientDrugOrders(){

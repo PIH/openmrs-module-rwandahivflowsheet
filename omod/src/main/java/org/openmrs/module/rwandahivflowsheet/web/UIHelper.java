@@ -87,7 +87,7 @@ public class UIHelper {
 		if(drugOrder.getDoseUnits() != null)
 			units = drugOrder.getDoseUnits().getDisplayString().replaceAll("tab\\(s\\)", "");
 		if(drugOrder.getFrequency() != null)
-			frequency = drugOrder.getConcept().getDisplayString().replaceAll(" x 7 days/week", "").replaceAll("day", "j");
+			frequency = drugOrder.getFrequency().getName();
 		return drugName + " " + dose + units + " " + frequency;
 	}
 
